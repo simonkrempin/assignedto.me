@@ -1,26 +1,50 @@
 {
-  "name": "ihk-projekt",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "concurrently \"next dev\" \"cd bin && pocketbase serve\"",
-    "build": "next build && cd bin && pocketbase build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@types/node": "18.15.11",
-    "@types/react": "18.0.32",
-    "@types/react-dom": "18.0.11",
-    "eslint": "8.37.0",
-    "eslint-config-next": "13.2.4",
-    "next": "13.2.4",
-    "pocketbase": "^0.14.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "5.0.3"
-  },
-  "devDependencies": {
-    "concurrently": "^8.0.1"
-  }
+    "name": "ihk-projekt",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "concurrently \"next dev\" \"cd bin && pocketbase serve\"",
+        "build": "next build && cd bin && pocketbase build",
+        "start": "next start",
+        "lint": "next lint",
+        "test": "jest"
+    },
+    "dependencies": {
+        "@types/node": "18.15.11",
+        "@types/react": "18.0.32",
+        "@types/react-dom": "18.0.11",
+        "eslint": "8.37.0",
+        "eslint-config-next": "13.2.4",
+        "next": "13.2.4",
+        "pocketbase": "^0.14.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "typescript": "5.0.3"
+    },
+    "devDependencies": {
+        "@testing-library/dom": "^9.2.0",
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^14.0.0",
+        "@types/jsdom": "^21.1.1",
+        "babel-jest": "^29.5.0",
+        "concurrently": "^8.0.1",
+        "jest": "^29.5.0",
+        "jest-dom": "^4.0.0",
+        "jest-environment-jsdom": "^29.5.0",
+        "ts-node": "^10.9.1"
+    },
+    "jest": {
+        "testPathIgnorePatterns": [
+            "./.next/",
+            "./node_modules/",
+            "./bin/",
+            "./src/__mocks__/"
+        ],
+        "setupFilesAfterEnv": [
+            "./src/__mocks__/client.ts"
+        ],
+        "transform": {
+            "^.+\\.(js|jsx|ts|tsx)$": "./node_modules/babel-jest"
+        }
+    }
 }
