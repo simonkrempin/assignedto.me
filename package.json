@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "concurrently \"next dev\" \"cd bin && pocketbase serve\"",
+    "build": "next build && cd bin && pocketbase build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -15,8 +15,12 @@
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",
+    "pocketbase": "^0.14.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.0.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1"
   }
 }
