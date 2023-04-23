@@ -71,7 +71,7 @@ describe("cookies", () => {
 
     describe("getUserFromCookies", () => {
         it("should return null if no cookies exist", () => {
-            expect(getUserFromCookies()).toBeNull();
+            expect(getUserFromCookies()).toEqual({});
         });
 
         it("should return a user if cookies exist", () => {

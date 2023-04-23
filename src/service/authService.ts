@@ -7,7 +7,7 @@ import { BadRequest, Forbidden, UserAuthenticated, UserCreated } from "@/models/
  */
 export const auth = async (email: string, password: string): Promise<UserAuthenticated | BadRequest> => {
     // const user = await db.collection("users").authWithPassword(email, password);
-    const user = await fetch("http://localhost:8090/api/collections/users/auth-with-password", {
+    const user = await fetch(`${process.env.DB_URL}:8090/api/collections/users/auth-with-password`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -22,7 +22,7 @@ export const auth = async (email: string, password: string): Promise<UserAuthent
 
 export const register = async (userinformation: RegisterUser): Promise<UserCreated | BadRequest | Forbidden> => {
     // const user = await db.collection("users").create(userinformation);
-    const user = await fetch("http://localhost:8090/api/collections/users/records", {
+    const user = await fetch(`${process.env.DB_URL}:8090/api/collections/users/records`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

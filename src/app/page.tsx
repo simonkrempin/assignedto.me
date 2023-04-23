@@ -1,7 +1,8 @@
+"use client";
+
 import { Inter } from "next/font/google";
 import styles from "./page.module.css";
 import React from "react";
-import { User } from "@/interfaces/auth";
 import { getUserFromCookies } from "@/lib/cookies";
 
 const inter = Inter({ subsets: ["latin"] });

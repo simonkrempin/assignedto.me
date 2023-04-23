@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "concurrently \"next dev\" \"cd bin && pocketbase serve\"",
-        "build": "next build && cd bin && pocketbase build",
+        "build": "next build && cd bin && pocketbase serve",
         "start": "next start",
         "lint": "next lint",
         "test": "jest"
@@ -26,7 +26,6 @@
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^14.0.0",
         "@types/jsdom": "^21.1.1",
-        "babel-jest": "^29.5.0",
         "concurrently": "^8.0.1",
         "jest": "^29.5.0",
         "jest-dom": "^4.0.0",
@@ -42,9 +41,6 @@
         ],
         "setupFilesAfterEnv": [
             "./src/__mocks__/client.ts"
-        ],
-        "transform": {
-            "^.+\\.(js|jsx|ts|tsx)$": "./node_modules/babel-jest"
-        }
+        ]
     }
 }
