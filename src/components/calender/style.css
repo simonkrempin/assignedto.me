@@ -6,7 +6,8 @@
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__navigation,
-.react-datepicker__day:hover {
+.react-datepicker__day:hover,
+.react-datepicker__current-month {
     color: var(--text-mid);
 }
 
@@ -71,9 +72,7 @@
     border-bottom-right-radius: 50%;
 }
 
-.react-datepicker__day:hover:not(
-    .react-datepicker__day--in-selecting-range
-) {
+.react-datepicker__day:hover:not(.react-datepicker__day--in-selecting-range) {
     background-color: var(--primary-light);
     border-radius: 50%;
     color: white;
@@ -89,6 +88,29 @@
 .react-datepicker__day--in-range:hover,
 .react-datepicker__day--selecting-range-end {
     background-color: var(--primary-light);
+    border-radius: 0;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.react-datepicker__day--selected:not(.react-datepicker__day--in-selecting-range, .react-datepicker__day--range-start) {
+    border-radius: 50%;
+}
+
+.react-datepicker__day--today.react-datepicker__day--selected:not(
+        .react-datepicker__day--in-selecting-range,
+        .react-datepicker__day--range-start
+    ) {
+    border-radius: 50%;
+}
+
+.react-datepicker__day--selected.react-datepicker__day--range-start.react-datepicker__day--in-range.react-datepicker__day:hover {
+    border-radius: 0;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.react-datepicker__day--range-end.react-datepicker__day--in-range.react-datepicker__day:hover {
     border-radius: 0;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;

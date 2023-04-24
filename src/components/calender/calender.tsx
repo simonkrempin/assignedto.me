@@ -26,6 +26,7 @@ const Calender = () => {
                 endDate={endDate}
                 selectsRange
                 inline
+                disabledKeyboardNavigation
             />
         </div>
     );
