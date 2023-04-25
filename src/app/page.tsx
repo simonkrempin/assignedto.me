@@ -15,7 +15,6 @@ export default function Main() {
     return (
         <UserContext.Provider value={user}>
             <main className={styles.main}>
-                <Calender/>
             </main>
         </UserContext.Provider>
     );

@@ -3,6 +3,10 @@
     border: none;
 }
 
+.react-datepicker__day-names {
+    margin-top: 5px;
+}
+
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__navigation,
@@ -60,11 +64,9 @@
     border-bottom-left-radius: 50%;
 }
 
-/* {
-    background-color: var(--primary-light);
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-}*/
+div {
+    font-weight: medium;
+}
 
 .react-datepicker__day--range-end {
     background-color: var(--primary);

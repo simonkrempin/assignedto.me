@@ -15,6 +15,11 @@
   --text-high: #0F1A20;
 }
 
+@font-face {
+  font-family: 'Inter', sans-serif;
+  src: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap";
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
