@@ -1,0 +1,132 @@
+.react-datepicker {
+    background-color: var(--background);
+    border: none;
+}
+
+.react-datepicker__day-names {
+    margin-top: 5px;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__navigation,
+.react-datepicker__day:hover,
+.react-datepicker__current-month {
+    color: var(--text-mid);
+}
+
+.react-datepicker__header {
+    background-color: var(--background);
+}
+
+/* SELECTION OF DATES */
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
+    background-color: var(--primary);
+    border-radius: 0;
+    color: white;
+}
+
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-selecting-range:not(
+        .react-datepicker__day--in-range,
+        .react-datepicker__month-text--in-range,
+        .react-datepicker__quarter-text--in-range,
+        .react-datepicker__year-text--in-range,
+        .react-datepicker__day--selecting-range-start,
+        .react-datepicker__day--selecting-range-end
+    ) {
+    background-color: var(--primary-light);
+    border-radius: 0;
+    color: white;
+}
+
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--selecting-range-start {
+    background-color: var(--primary-light);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.react-datepicker__day--in-selecting-range:not(
+        .react-datepicker__day--in-range,
+        .react-datepicker__month-text--in-range,
+        .react-datepicker__quarter-text--in-range,
+        .react-datepicker__year-text--in-range
+    ) {
+    background-color: var(--primary-light);
+}
+
+.react-datepicker__day--range-start {
+    background-color: var(--primary);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+div {
+    font-weight: medium;
+}
+
+.react-datepicker__day--range-end {
+    background-color: var(--primary);
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.react-datepicker__day:hover:not(.react-datepicker__day--in-selecting-range) {
+    background-color: var(--primary-light);
+    border-radius: 50%;
+    color: white;
+}
+
+.react-datepicker__day:hover.react-datepicker__day--in-range {
+    background-color: var(--primary-light);
+    border-radius: 0%;
+    color: white;
+}
+
+.react-datepicker__day:hover,
+.react-datepicker__day--in-range:hover,
+.react-datepicker__day--selecting-range-end {
+    background-color: var(--primary-light);
+    border-radius: 0;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.react-datepicker__day--selected:not(.react-datepicker__day--in-selecting-range, .react-datepicker__day--range-start) {
+    border-radius: 50%;
+}
+
+.react-datepicker__day--today.react-datepicker__day--selected:not(
+        .react-datepicker__day--in-selecting-range,
+        .react-datepicker__day--range-start
+    ) {
+    border-radius: 50%;
+}
+
+.react-datepicker__day--selected.react-datepicker__day--range-start.react-datepicker__day--in-range.react-datepicker__day:hover {
+    border-radius: 0;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.react-datepicker__day--range-end.react-datepicker__day--in-range.react-datepicker__day:hover {
+    border-radius: 0;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+/* FORMATTING LANES */
+
+.react-datepicker__today-button {
+    color: var(--text-mid);
+    background-color: var(--background);
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+    margin: 0;
+}

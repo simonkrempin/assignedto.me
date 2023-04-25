@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import styles from "./page.module.css";
 import React from "react";
 import { getUserFromCookies } from "@/lib/cookies";
+import { Calender } from "@/components";
 
 const inter = Inter({ subsets: ["latin"] });
 const UserContext = React.createContext({});
@@ -13,7 +14,8 @@ export default function Main() {
 
     return (
         <UserContext.Provider value={user}>
-            <main className={styles.main}></main>
+            <main className={styles.main}>
+            </main>
         </UserContext.Provider>
     );
 }
