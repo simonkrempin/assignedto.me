@@ -1,12 +1,10 @@
 "use client";
 
-import { Inter } from "next/font/google";
 import styles from "./page.module.css";
 import React from "react";
 import { getUserFromCookies } from "@/lib/cookies";
-import { Calender } from "@/components";
+import { TaskContainer } from "@/components";
 
-const inter = Inter({ subsets: ["latin"] });
 const UserContext = React.createContext({});
 
 export default function Main() {
@@ -15,6 +13,7 @@ export default function Main() {
     return (
         <UserContext.Provider value={user}>
             <main className={styles.main}>
+                <TaskContainer title="Titel" description="Description" date="4.12.2003"/>
             </main>
         </UserContext.Provider>
     );

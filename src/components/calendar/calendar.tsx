@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import "./calendar.css";
 
-const Calender = () => {
+const Calendar = () => {
     const [startDate, setStartDate] = react.useState(new Date());
     const [endDate, setEndDate] = react.useState(new Date());
 
@@ -32,4 +32,4 @@ const Calender = () => {
     );
 };
 
-export { Calender };
+export { Calendar };
