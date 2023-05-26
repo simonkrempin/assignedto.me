@@ -1,0 +1,9 @@
+input {
+    color: var(--text-high);
+    background-color: white;
+    font-size: large;
+    border-radius: 7px;
+    height: 30px;
+    width: 300px;
+    padding: 7px;
+}
