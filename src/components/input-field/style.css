@@ -1,9 +1,10 @@
 input {
     color: var(--text-high);
-    background-color: white;
+    background-color: var(--primary-light);
     font-size: large;
-    border-radius: 7px;
-    height: 30px;
-    width: 300px;
+    border-radius: 8px;
+    height: 40px;
+    width: 100%;
     padding: 7px;
+    border: none;
 }
