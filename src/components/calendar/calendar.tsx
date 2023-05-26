@@ -17,7 +17,7 @@ const Calendar = () => {
     };
 
     return (
-        <div>
+        <div className="testClass">
             <DatePicker
                 todayButton="Heute"
                 selected={startDate}

@@ -2,27 +2,54 @@
 
 import React from "react";
 
+import { TaskContainerProps } from "@interfaces/components";
+import { InputField, DatePicker, PeoplePicker, Button } from "@components";
+
+import { useTask } from "./hook";
+
 import "./styles.css";
 
-export interface TaskContainerProps {
-    title: string;
-    description: string;
-    date: string;
-}
+const TaskContainer = ({ id, title, description, date, completed }: TaskContainerProps) => {
+    const { state, setFocused } = useTask({
+        title,
+        description,
+        date,
+        completed,
+        isFocused: false,
+    });
+    const focusRef = React.useRef<HTMLDivElement>(null);
 
-const TaskContainer = ({ title, description, date }: TaskContainerProps) => {
-    const [isExpanded, setIsExpanded] = React.useState(false);
-    const [isCompleted, setIsCompleted] = React.useState(false);
+    const handleClick = () => {
+        setFocused(true);
+    };
+
+    const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+        if (focusRef.current?.contains(event.relatedTarget as Node)) {
+            return;
+        }
+
+        setFocused(false);
+    };
 
     return (
-        <div className="horizontal-container root" onClick={() => setIsExpanded(true)}>
-            <input type="checkbox" />
-            <div className="vertical-container">
-                <div className="horizontal-container">
-                    <h1>{title}</h1>
-                    <h2>{date}</h2>
+        <div className="root" onClick={handleClick} onBlur={handleBlur} tabIndex={0}>
+            <div ref={focusRef} className="focused-container horizontal-container">
+                <input type="checkbox" />
+                <div className="vertical-container">
+                    <div className="horizontal-container">
+                        <p contentEditable={true}>{title}</p>
+                        <div ref={focusRef}>
+                            <DatePicker date={date} />
+                        </div>
+                    </div>
+                    <InputField />
+                    {state.isFocused ? (
+                        <div className="horizontal-container">
+                            <PeoplePicker />
+                            <Button />
+                        </div>
+                    ) : null}
                 </div>
-                <p>{description}</p>
             </div>
         </div>
     );

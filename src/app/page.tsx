@@ -2,8 +2,8 @@
 
 import styles from "./page.module.css";
 import React from "react";
-import { getUserFromCookies } from "@/lib/cookies";
-import { TaskContainer } from "@/components";
+import { getUserFromCookies } from "@lib/cookies";
+import { Calendar, TaskContainer } from "@components";
 
 const UserContext = React.createContext({});
 
@@ -13,7 +13,8 @@ export default function Main() {
     return (
         <UserContext.Provider value={user}>
             <main className={styles.main}>
-                <TaskContainer title="Titel" description="Description" date="4.12.2003"/>
+                <TaskContainer key="1" id="1" title="Titel" description="Description" date={new Date()} completed={false} />
+                <TaskContainer key="2" id="2" title="Titel" description="Description" date={new Date()} completed={false} />
             </main>
         </UserContext.Provider>
     );
