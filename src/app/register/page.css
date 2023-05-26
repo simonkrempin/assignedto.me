@@ -1,0 +1,18 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background: var(--primary-light);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.container {
+    background-color: var(--background);
+    padding: 40px 30px;
+    border-radius: 16px;
+}
+
+.input {
+    padding-top: 20px;
+}
