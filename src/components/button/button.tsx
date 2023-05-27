@@ -2,7 +2,7 @@ import react from "react";
 
 import "./style.css";
 
-type Mode = "large" | "small";
+type Mode = "large" | "small" | "link";
 
 interface inputProps {
     mode : Mode;
@@ -15,11 +15,15 @@ const Button = ({text,mode}: inputProps) => {
     switch(mode) {
         case "large":
             return (
-                <button className=" btn largeButton">{text}</button>
+                <button className="largeBtn">{text}</button>
             );
         case "small":
             return (
-                <button className=" btn smallButton">{text}</button>
+                <button className="smallBtn">{text}</button>
+            );
+        case "link":
+            return (
+                <button className="linkBtn">{text}</button>
             )
     }
     
