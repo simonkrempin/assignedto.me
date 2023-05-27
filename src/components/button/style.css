@@ -1,0 +1,13 @@
+.btn {
+    background-color: var(--primary-light);
+    border: none;
+    color: var(--text-mid);
+    padding: 4px 12px;
+    border-radius: var(--border-radius);
+    width: 100%;
+}
+
+.btn:enabled:hover {
+    background-color: var(--primary);
+    color: var(--background);
+}
