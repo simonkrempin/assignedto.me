@@ -3,6 +3,10 @@
     border: none;
 }
 
+.react-datepicker-wrapper {
+    width: fit-content;
+}
+
 .react-datepicker__day-names {
     margin-top: 5px;
 }
@@ -127,6 +131,7 @@ div {
 
 .react-datepicker__day-name,
 .react-datepicker__day,
-.react-datepicker__time-name {
+.react-datepicker__time-name,
+.react-datepicker-ignore-onclickoutside {
     margin: 0;
 }

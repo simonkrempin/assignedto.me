@@ -1,0 +1,14 @@
+.input {
+    color: var(--text-high);
+    background-color: var(--primary-light);
+    font-size: large;
+    border-radius: 8px;
+    height: 40px;
+    width: 100%;
+    padding: 7px;
+    border: none;
+}
+
+.p {
+    width: 100%;
+}

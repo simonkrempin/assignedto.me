@@ -10,7 +10,7 @@ import { useTask } from "./hook";
 import "./styles.css";
 
 const TaskContainer = ({ id, title, description, date, completed }: TaskContainerProps) => {
-    const { state, setFocused } = useTask({
+    const { state, setFocused, setTitle, setDescription } = useTask({
         title,
         description,
         date,
@@ -37,18 +37,11 @@ const TaskContainer = ({ id, title, description, date, completed }: TaskContaine
                 <input type="checkbox" />
                 <div className="vertical-container">
                     <div className="horizontal-container">
-                        <p contentEditable={true}>{title}</p>
-                        <div ref={focusRef}>
-                            <DatePicker date={date} />
-                        </div>
+                        <InputField text={title} changeText={setTitle} inputMode="small" />
+                        <DatePicker date={date} />
                     </div>
-                    <InputField />
-                    {state.isFocused ? (
-                        <div className="horizontal-container">
-                            <PeoplePicker />
-                            <Button />
-                        </div>
-                    ) : null}
+                    <InputField text={description} changeText={setDescription} inputMode="small" />
+                    {state.isFocused ? <PeoplePicker /> : null}
                 </div>
             </div>
         </div>

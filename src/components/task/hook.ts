@@ -33,7 +33,15 @@ const useTask = (initialState: State) => {
         setFocused(!state.isFocused);
     };
 
-    return { state, dispatch, setCompleted, setFocused, toggleFocus };
+    const setTitle = (title: String) => {
+        dispatch({ title });
+    };
+
+    const setDescription = (description: String) => {
+        dispatch({ description });
+    };
+
+    return { state, dispatch, setCompleted, setFocused, toggleFocus, setTitle, setDescription };
 };
 
 export { useTask };
