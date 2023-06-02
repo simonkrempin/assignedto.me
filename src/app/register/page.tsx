@@ -1,7 +1,7 @@
 "use client";
 
 import "./page.css";
-import { InputField } from "@/components";
+import { Button, InputField } from "@/components";
 import React from "react";
 
 export default function Register(): React.ReactElement {
@@ -13,7 +13,6 @@ export default function Register(): React.ReactElement {
     console.log(username);
 
     return (
-        <main className="main">
             <div className="container">
                     <h2>Willkommen</h2>
                     <div className="input">
@@ -28,7 +27,15 @@ export default function Register(): React.ReactElement {
                     <div className="input">
                         <InputField inputMode="large" text={confirmPassword} changeText={setConfirmPassword} label="Passwort Wiederholen" />
                     </div>
+                    <div className="input">
+                        <Button mode="large" text="Registrieren"></Button>
+                    </div>
+                    <div>
+                        <hr />
+                    </div>
+                    <div className="input linkButton">
+                        <Button mode="link" text="Anmelden"></Button>
+                    </div>
             </div>
-        </main>
     );
 }
