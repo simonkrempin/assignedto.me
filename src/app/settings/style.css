@@ -1,0 +1,35 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background: var(--background);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+h1 {
+    position: absolute;
+    top: 0;
+    margin-left: 130px;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.container {
+    background-color: var(--background);
+    padding: 40px 30px;
+    border-radius: 16px;
+}
+
+Button {
+    margin-top: 30px;
+}
+
+.save {
+    position: absolute;
+    max-width: 90px;
+    margin: 10px 10px;
+    right: 0;
+    bottom: 0;
+}
+
