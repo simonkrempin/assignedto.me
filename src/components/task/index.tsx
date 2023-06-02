@@ -7,7 +7,7 @@ import { InputField, DatePicker, PeoplePicker, Button } from "@components";
 
 import { useTask } from "./hook";
 
-import "./styles.css";
+import styles from "./styles.module.css";
 
 const TaskContainer = ({ id, title, description, date, completed }: TaskContainerProps) => {
     const { state, setFocused, setTitle, setDescription } = useTask({
@@ -32,18 +32,24 @@ const TaskContainer = ({ id, title, description, date, completed }: TaskContaine
     };
 
     return (
-        <div className="root" onClick={handleClick} onBlur={handleBlur} tabIndex={0}>
-            <div ref={focusRef} className="focused-container horizontal-container">
-                <input type="checkbox" />
+        <div
+            ref={focusRef}
+            className={`${styles.root} vertical-container`}
+            onClick={handleClick}
+            onBlur={handleBlur}
+            tabIndex={0}
+        >
+            <div className="horizontal-container">
+                <input type="checkbox" className={styles.checkbox} />
                 <div className="vertical-container">
                     <div className="horizontal-container">
                         <InputField text={title} changeText={setTitle} inputMode="small" />
                         <DatePicker date={date} />
                     </div>
                     <InputField text={description} changeText={setDescription} inputMode="small" />
-                    {state.isFocused ? <PeoplePicker /> : null}
                 </div>
             </div>
+            {state.isFocused ? <PeoplePicker /> : null}
         </div>
     );
 };
