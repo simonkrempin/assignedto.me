@@ -10,6 +10,8 @@ export default function Register(): React.ReactElement {
     const [password, setPassword] = React.useState<string>("");
     const [confirmPassword, setConfirmPassword] = React.useState<string>("");
 
+    console.log(username);
+
     return (
         <main className="main">
             <div className="container">
@@ -26,7 +28,6 @@ export default function Register(): React.ReactElement {
                     <div className="input">
                         <InputField inputMode="large" text={confirmPassword} changeText={setConfirmPassword} label="Passwort Wiederholen" />
                     </div>
-                    
             </div>
         </main>
     );
