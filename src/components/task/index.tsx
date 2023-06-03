@@ -2,28 +2,37 @@
 
 import React from "react";
 
-import { TaskContainerProps } from "@interfaces/components";
-import { InputField, DatePicker, PeoplePicker, Button } from "@components";
+import { InputField, DatePicker, PeoplePicker, Checkbox } from "@components";
 
 import { useTask } from "./hook";
 
 import styles from "./styles.module.css";
 
-const TaskContainer = ({ id, title, description, date, completed }: TaskContainerProps) => {
-    const { state, setFocused, setTitle, setDescription } = useTask({
+export interface TaskContainerProps {
+    id: string;
+    title: string;
+    description: string;
+    date: Date;
+    completed: boolean;
+    assignees: string;
+}
+
+const TaskContainer = React.memo(({ id, title, description, date, completed, assignees }: TaskContainerProps) => {
+    const { state, setFocused, setTitle, setDescription, setAssignees } = useTask({
         title,
         description,
         date,
         completed,
         isFocused: false,
+        assignees,
     });
     const focusRef = React.useRef<HTMLDivElement>(null);
 
-    const handleClick = () => {
+    const startFocus = () => {
         setFocused(true);
     };
 
-    const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    const dontBlurOnChildClicked = (event: React.FocusEvent<HTMLDivElement>) => {
         if (focusRef.current?.contains(event.relatedTarget as Node)) {
             return;
         }
@@ -31,16 +40,18 @@ const TaskContainer = ({ id, title, description, date, completed }: TaskContaine
         setFocused(false);
     };
 
+    console.log(state.assignees);
+
     return (
         <div
             ref={focusRef}
             className={`${styles.root} vertical-container`}
-            onClick={handleClick}
-            onBlur={handleBlur}
+            onClick={startFocus}
+            onBlur={dontBlurOnChildClicked}
             tabIndex={0}
         >
             <div className="horizontal-container">
-                <input type="checkbox" className={styles.checkbox} />
+                <Checkbox checked={false} setChecked={(checked: boolean) => {}}/>
                 <div className="vertical-container">
                     <div className="horizontal-container">
                         <InputField text={title} changeText={setTitle} inputMode="small" />
@@ -49,9 +60,9 @@ const TaskContainer = ({ id, title, description, date, completed }: TaskContaine
                     <InputField text={description} changeText={setDescription} inputMode="small" />
                 </div>
             </div>
-            {state.isFocused ? <PeoplePicker /> : null}
+            {state.isFocused ? <PeoplePicker selectedUsers={state.assignees} addUser={setAssignees}/> : null}
         </div>
     );
-};
+});
 
 export { TaskContainer };

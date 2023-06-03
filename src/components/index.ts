@@ -6,5 +6,6 @@ import { Calendar } from "./calendar/calendar";
 import { TaskContainer } from "./task";
 import { DatePicker } from "./date-picker";
 import PeoplePicker from "./people-picker";
+import { Checkbox } from "./checkbox/index";
 
-export { Sidebar, Text, Button, InputField, Calendar, TaskContainer, DatePicker, PeoplePicker };
+export { Sidebar, Text, Button, InputField, Calendar, TaskContainer, DatePicker, PeoplePicker, Checkbox };

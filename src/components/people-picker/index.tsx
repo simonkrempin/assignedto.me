@@ -2,22 +2,15 @@ import React from "react";
 import Select, { SingleValue } from "react-select";
 
 import "./style.css";
+import { InputField } from "../input-field";
 
-interface OptionType {
-    value: string;
-    label: string;
+interface PeoplePickerProps {
+    selectedUsers: string;
+    addUser: (user: string) => void;
 }
 
-const PeoplePicker = () => {
-    const [selectedOption, setSelectedOption] = React.useState<SingleValue<OptionType>>(null);
-
-    const options: Array<OptionType> = [
-        { value: "jan", label: "Jan" },
-        { value: "agravis", label: "Agravis" },
-        { value: "lfit", label: "LFit" },
-    ];
-
-    return <Select value={selectedOption} onChange={setSelectedOption} options={options} />;
+const PeoplePicker = ({ selectedUsers, addUser }: PeoplePickerProps) => {
+    return <InputField text={selectedUsers} inputMode="small" changeText={addUser} label="Add user" />;
 };
 
 export default PeoplePicker;

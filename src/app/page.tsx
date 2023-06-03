@@ -12,11 +12,7 @@ export default function Main() {
 
     return (
         <UserContext.Provider value={user}>
-            <main className={styles.main} style={{
-                backgroundColor: "var(--primary)",
-            }}>
-                <TaskContainer key="1" id="1" title="Titel" description="Description" date={new Date()} completed={false} />
-                <TaskContainer key="2" id="2" title="Titel" description="Description" date={new Date()} completed={false} />
+            <main className={styles.main}>
             </main>
         </UserContext.Provider>
     );

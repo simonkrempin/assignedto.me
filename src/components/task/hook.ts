@@ -1,10 +1,11 @@
 import { useReducer } from "react";
 
 interface TaskProps {
-    title: String;
-    description: String;
+    title: string;
+    description: string;
     date: Date;
-    completed: Boolean;
+    completed: boolean;
+    assignees: string;
 }
 
 interface FocusState {
@@ -21,11 +22,11 @@ const reducer = (state: State, action: Action) => {
 const useTask = (initialState: State) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const setCompleted = (completed: Boolean) => {
+    const setCompleted = (completed: boolean) => {
         dispatch({ completed });
     };
 
-    const setFocused = (isFocused: Boolean) => {
+    const setFocused = (isFocused: boolean) => {
         dispatch({ isFocused });
     };
 
@@ -33,15 +34,19 @@ const useTask = (initialState: State) => {
         setFocused(!state.isFocused);
     };
 
-    const setTitle = (title: String) => {
+    const setTitle = (title: string) => {
         dispatch({ title });
     };
 
-    const setDescription = (description: String) => {
+    const setDescription = (description: string) => {
         dispatch({ description });
     };
 
-    return { state, dispatch, setCompleted, setFocused, toggleFocus, setTitle, setDescription };
+    const setAssignees = (assignees: string) => {
+        dispatch({ assignees });
+    };
+
+    return { state, dispatch, setCompleted, setFocused, toggleFocus, setTitle, setDescription, setAssignees };
 };
 
 export { useTask };

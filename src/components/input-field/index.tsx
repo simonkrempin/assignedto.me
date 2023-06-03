@@ -12,21 +12,23 @@ interface inputProps {
 }
 
 const InputField = ({ text, inputMode, label, changeText }: inputProps) => {
-    const onChange = (event: react.ChangeEvent<HTMLInputElement>) => {
+    const onInput = (event: react.ChangeEvent<HTMLInputElement>) => {
         changeText(event.target.value);
-    }
+    };
 
     switch (inputMode) {
         case "large":
             return (
                 <div>
                     <label>{label}</label>
-                    <input className={styles.input} type="text" value={text} onChange={onChange}></input>
+                    <input className={styles.input} type="text" value={text} onInput={onInput}></input>
                 </div>
             );
         case "small":
             return (
-                <p className={styles.p} contentEditable={true} onChange={onChange}>{text}</p>
+                <p className={styles.p} contentEditable={true} suppressContentEditableWarning={true} onInput={onInput}>
+                    {text}
+                </p>
             );
         default:
             throw new Error("not implemented");
