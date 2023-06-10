@@ -5,7 +5,7 @@
     background-color: var(--primary-light);
     border: none;
     color: var(--text-mid);
-    padding: 4px 12px;
+    padding: 10px 16px;
     border-radius: var(--border-radius);
 }
 
@@ -41,6 +41,7 @@
 .linkBtn {
     color: var(--text-low);
     border: none;
+    background-color: transparent;
 }
 
 .linkBtn:hover {
