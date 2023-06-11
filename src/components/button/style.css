@@ -1,6 +1,6 @@
 /* Large Button */
 
-.largeBtn {
+.large {
     width: 100%;
     background-color: var(--primary-light);
     border: none;
@@ -9,12 +9,12 @@
     border-radius: var(--border-radius);
 }
 
-.largeBtn:hover {
+.large:hover {
     background-color: var(--primary);
     color: var(--primary-light);
 }
 
-.largeBtn:active {
+.large:active {
     background-color: var(--primary);
     color: var(--primary-light);
 }
@@ -22,7 +22,7 @@
 
 /* Small Button */
 
-.smallBtn {
+.small {
     width: 100%;
     background-color: var(--primary);
     border: none;
@@ -31,23 +31,23 @@
     border-radius: var(--border-radius);
 }
 
-.smallBtn:hover {
+.small:hover {
     background-color: var(--primary-light);
     color: var(--text-mid);
 }
 
 /* Link Button */
 
-.linkBtn {
+.link {
     color: var(--text-low);
     border: none;
     background-color: transparent;
 }
 
-.linkBtn:hover {
+.link:hover {
     color: var(--text-mid);
 }
 
-.linkBtn:active {
+.link:active {
     color: var(--text-mid);
 }

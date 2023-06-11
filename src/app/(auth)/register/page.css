@@ -1,0 +1,32 @@
+.container {
+    background-color: var(--background);
+    padding: 40px 30px;
+    border-radius: 16px;
+    padding-bottom: 20px;
+    grid-template-rows: 100px 60px 60px 60px 60x;
+    align-content: space-between;
+    justify-content: space-between;
+    display: grid;
+    height: calc(100vh/2);
+}
+
+hr {
+    margin-top: 20px;
+}
+
+a {
+    color: var(--text-low);
+    text-decoration: none;
+    display: block;
+}
+
+a:hover {
+    color: var(--text-mid);
+}
+
+.anmelden {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
