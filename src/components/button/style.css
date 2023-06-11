@@ -1,53 +1,30 @@
-/* Large Button */
-
-.largeBtn {
-    width: 100%;
-    background-color: var(--primary-light);
-    border: none;
+.btnLarge {
+    padding: 12px 24px;
+    font-size: 16px;
     color: var(--text-mid);
-    padding: 10px 16px;
-    border-radius: var(--border-radius);
-}
-
-.largeBtn:hover {
-    background-color: var(--primary);
-    color: var(--primary-light);
-}
-
-.largeBtn:active {
-    background-color: var(--primary);
-    color: var(--primary-light);
-}
-
-
-/* Small Button */
-
-.smallBtn {
-    width: 100%;
-    background-color: var(--primary);
-    border: none;
-    color: var(--primary-light);
-    padding: 2px 8px;
-    border-radius: var(--border-radius);
-}
-
-.smallBtn:hover {
     background-color: var(--primary-light);
-    color: var(--text-mid);
+    border: 2px solid var(--primary-light);
+    border-radius: var(--border-radius);
+    cursor: pointer;
 }
 
-/* Link Button */
 
-.linkBtn {
+
+
+/* Styling for small Button */
+
+.btnSmall {
+    padding: 0px;
+    font-size: 14px;
+    border: none;
     color: var(--text-low);
-    border: none;
     background-color: transparent;
+    
 }
 
-.linkBtn:hover {
-    color: var(--text-mid);
-}
+/* text style darker */
 
-.linkBtn:active {
-    color: var(--text-mid);
-}
+.darker {
+    background-color: var(--primary);
+    border: 2px solid var(--primary);
+    color: var(--background);
