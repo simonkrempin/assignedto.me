@@ -1,0 +1,30 @@
+.btnLarge {
+    padding: 12px 24px;
+    font-size: 16px;
+    color: var(--text-mid);
+    background-color: var(--primary-light);
+    border: 2px solid var(--primary-light);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+
+
+
+/* Styling for small Button */
+
+.btnSmall {
+    padding: 0px;
+    font-size: 14px;
+    border: none;
+    color: var(--text-low);
+    background-color: transparent;
+    
+}
+
+/* text style darker */
+
+.darker {
+    background-color: var(--primary);
+    border: 2px solid var(--primary);
+    color: var(--background);
