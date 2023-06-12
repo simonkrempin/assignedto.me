@@ -1,0 +1,30 @@
+body{
+    background-color: var(--primary-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    background-color: var(--background);
+    padding: 40px 30px; 
+    border-radius: 16px;
+    padding-bottom: 20px;
+}
+
+.eingabe{
+    padding-top: 20px; 
+}
+
+button{
+    justify-content: center;
+    justify-items: center;
+    margin-left: 42.5%;
+    padding-top: 15px;
+}
+
+hr{
+    margin-top: 20px;
+}
