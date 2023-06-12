@@ -1,38 +1,15 @@
-import React, {ReactNode} from "react";
+import React from "react";
 
-import "./style.css";
-
-type Size = "large" | "small";
+import styling from "./style.module.css";
 
 interface inputProps {
-    size : Size;
-    color: "lighter" | "darker" 
-    selected: boolean;
+    mode: "large" | "small" | "link";
     onClick: () => void;
-    children: ReactNode; // Added children prop
+    label: string;
 }
 
-const Button = ({size, color, selected, onClick, children}: inputProps ) => {
-    const buttonClassName = size === 'large' ? 'btnLarge' : 'btnSmall';
-    
-    switch (size) {
-        case "large":
-            return (
-                // For large Button selected function should change the color prop to darker
-                <button className={`${buttonClassName} ${color}`}   onClick={onClick}>
-                    {children}
-                </button>
-            );
-        case "small":
-            return (
-                // Small Button is for links only as settings, login, register etc.
-                // Do not use darker color, as it adds background and a border to the button
-                <button className={`${buttonClassName} ${color}`} onClick={onClick}>
-                    {children}
-                </button>
-            )
-
-    }
+const Button = ({label, mode, onClick,}: inputProps ) => {
+    return <button className={styling.large} onClick={onClick}>{label}</button>
 }
 
 export { Button };

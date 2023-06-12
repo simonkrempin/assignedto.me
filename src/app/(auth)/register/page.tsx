@@ -1,76 +1,69 @@
 "use client";
 
-import "./page.css";
+import styling from "./page.module.css";
 import { Button, InputField } from "@components";
-import { register } from "@src/service/authService";
+import { register } from "@services/authService";
 import React from "react";
 import { useRouter } from "next/navigation";
 
-interface RegisterState {
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
-
-const registerReducer = (state: RegisterState, action: Partial<RegisterState>) => {
-    return { ...state, ...action };
-};
-
 export default function Register(): React.ReactElement {
-    const [state, dispatch] = React.useReducer(registerReducer, {
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-    });
+    const [username, setUsername] = React.useState<string>("");
+    const [email, setEmail] = React.useState<string>("");
+    const [password, setPassword] = React.useState<string>("");
+    const [confirmPassword, setConfirmPassword] = React.useState<string>("");
     const router = useRouter();
 
     const registerUser = () => {
+        if (password !== confirmPassword) {
+            return;
+        }
+
         register({
-            username: state.username,
-            email: state.email,
-            password: state.password,
-            confirmPassword: state.confirmPassword,
-        }).then((res) => {
-            console.log(res);
-            router.push("/");
-        }).catch((err) => {
-            console.log(err);
-        });
+            username,
+            email,
+            password,
+            confirmPassword,
+        })
+            .then((res) => {
+                console.log(res);
+                router.push("/");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (
-        <div className="container">
+        <div className={styling.container}>
             <h2>Willkommen</h2>
-            <InputField
-                inputMode="large"
-                text={state.username}
-                changeText={(username) => dispatch({ username })}
-                label="Nutzername"
-            />
-            <InputField
-                inputMode="large"
-                text={state.email}
-                changeText={(email) => dispatch({ email })}
-                label="Email"
-            />
-            <InputField
-                inputMode="large"
-                text={state.password}
-                changeText={(password) => dispatch({ password })}
-                label="Passwort"
-            />
-            <InputField
-                inputMode="large"
-                text={state.confirmPassword}
-                changeText={(confirmPassword) => dispatch({ confirmPassword })}
-                label="Passwort Wiederholen"
-            />
-            <Button mode="large" text="Registrieren" onClick={registerUser}></Button>
-            <hr />
-            <div className="anmelden">
-                <a href="/login">Anmelden</a>
+            <div className={styling.s1}>
+                <InputField fieldStyle="large" text={username} changeText={setUsername} label="Nutzername" />
+                <InputField fieldStyle="large" text={email} changeText={setEmail} label="Email" />
+                <InputField
+                    fieldStyle="large"
+                    text={password}
+                    changeText={setPassword}
+                    label="Passwort"
+                    inputMode="password"
+                />
+                <InputField
+                    fieldStyle="large"
+                    text={confirmPassword}
+                    changeText={setConfirmPassword}
+                    label="Passwort Wiederholen"
+                    inputMode="password"
+                />
+            </div>
+            <div className={styling.s2}>
+                <Button mode="large" label="Registrieren" onClick={registerUser} />
+                <div className={styling.seperator}>
+                    <div className={styling.hr}>
+                        <span className={styling.span}>oder</span>
+                    </div>
+                </div>
+                <div className={styling.anmelden}>
+                    <a href="/login">Anmelden</a>
+                </div>
             </div>
         </div>
     );

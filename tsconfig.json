@@ -22,6 +22,7 @@
     "paths": {
       "@components": ["./src/components/index"],
       "@interfaces/*": ["./src/interfaces/*"],
+      "@services/*": ["./src/services/*"],
       "@lib/*": ["./src/lib/*"],
       "@src/*": ["./src/*"],
     }

@@ -1,4 +1,4 @@
-.btnLarge {
+.large {
     padding: 12px 24px;
     font-size: 16px;
     color: var(--text-mid);
@@ -6,6 +6,7 @@
     border: 2px solid var(--primary-light);
     border-radius: var(--border-radius);
     cursor: pointer;
+    width: 100%;
 }
 
 
@@ -13,7 +14,7 @@
 
 /* Styling for small Button */
 
-.btnSmall {
+.small {
     padding: 0px;
     font-size: 14px;
     border: none;

@@ -2,26 +2,27 @@ import react from "react";
 
 import styles from "./style.module.css";
 
-type InputMode = "large" | "small";
+type FieldStyle = "large" | "small";
 
 interface inputProps {
     label?: string;
     text: string;
     changeText: (text: string) => void;
-    inputMode: InputMode;
+    fieldStyle: FieldStyle;
+    inputMode?: "text" | "password";
 }
 
-const InputField = ({ text, inputMode, label, changeText }: inputProps) => {
+const InputField = ({ text, fieldStyle, label, changeText, inputMode = "text" }: inputProps) => {
     const onInput = (event: react.ChangeEvent<HTMLInputElement>) => {
         changeText(event.target.value);
     };
 
-    switch (inputMode) {
+    switch (fieldStyle) {
         case "large":
             return (
                 <div>
                     <label>{label}</label>
-                    <input className={styles.input} type="text" value={text} onInput={onInput}></input>
+                    <input  className={styles.input} value={text} onInput={onInput} type={inputMode}></input>
                 </div>
             );
         case "small":
