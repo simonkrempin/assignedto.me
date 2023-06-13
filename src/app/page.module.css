@@ -1,3 +1,19 @@
 .main {
-    background-color: var(--primary);
+    background-color: var(--background);
+    display: flex;
+    height: 100vh;
+}
+
+.tasks {
+    flex: 2;
+    background-color: var(--primary-light);
+    border-radius: 40px 0px 0px 40px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.sidebar {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
 }

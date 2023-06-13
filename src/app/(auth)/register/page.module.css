@@ -6,7 +6,7 @@
     align-content: space-between;
     justify-content: space-between;
     display: grid;
-    height: calc(100vh/2);
+    height: 650px;
 }
 
 .a {
@@ -55,4 +55,9 @@
     background-color: var(--background);
     padding: 0 10px;
     color: var(--text-on-primary);
+}
+
+.errorText {
+    height: 20px;
+    color: red;
 }

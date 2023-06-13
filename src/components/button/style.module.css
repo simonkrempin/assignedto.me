@@ -1,16 +1,35 @@
 .large {
-    padding: 12px 24px;
+    padding: 10px 24px;
+    height: 50px;
     font-size: 16px;
     color: var(--text-mid);
     background-color: var(--primary-light);
     border: 2px solid var(--primary-light);
     border-radius: var(--border-radius);
+    align-items: center;
+    display: flex;
+    justify-content: center;
     cursor: pointer;
     width: 100%;
 }
 
+.loader {
+    border: 5px solid var(--background); /* Light grey */
+    border-top: 5px solid var(--primary); /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+}
 
-
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 /* Styling for small Button */
 
@@ -20,7 +39,6 @@
     border: none;
     color: var(--text-low);
     background-color: transparent;
-    
 }
 
 /* text style darker */

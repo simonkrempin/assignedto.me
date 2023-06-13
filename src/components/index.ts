@@ -1,5 +1,4 @@
 import Sidebar from "./sidebar/sidebar";
-import { Text } from "./text/text";
 import { Button } from "./button/button";
 import { InputField } from "./input-field/index";
 import { Calendar } from "./calendar/calendar";
@@ -8,4 +7,4 @@ import { DatePicker } from "./date-picker";
 import PeoplePicker from "./people-picker";
 import { Checkbox } from "./checkbox/index";
 
-export { Sidebar, Text, Button, InputField, Calendar, TaskContainer, DatePicker, PeoplePicker, Checkbox };
+export { Sidebar, Button, InputField, Calendar, TaskContainer, DatePicker, PeoplePicker, Checkbox };

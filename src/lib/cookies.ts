@@ -1,7 +1,7 @@
 "use client";
 
-import { User } from "@/interfaces/auth";
-import { CookieOptions } from "@/interfaces/web";
+import { User } from "@interfaces/auth";
+import { CookieOptions } from "@interfaces/web";
 import { clientSide } from "./nextjs";
 
 export const getCookie = (cookieName: string): string => {
@@ -16,12 +16,12 @@ export const getCookie = (cookieName: string): string => {
     return "";
 };
 
-export const getUserFromCookies = (): User | {} => {
+export const getUserFromCookies = (): User | null => {
     const username = getCookie("username");
     const token = getCookie("token");
     const email = getCookie("email");
 
-    return username && token && email ? { username, token, email } : {};
+    return username && token && email ? { username, token, email } : null;
 };
 
 export const clearCookies = () => {
@@ -38,10 +38,10 @@ export const deleteCookie = (cookieName: string): void => {
     document.cookie = `${cookieName}=;max-age=0;path=/`;
 };
 
-export const setCookie = (cookieName: string, cookieValue: string, cookieOptions: CookieOptions): void => {
+export const setCookie = (cookieName: string, cookieValue: string, cookieOptions?: CookieOptions): void => {
     if (!clientSide()) return;
 
-    const expires = getExpireDate(cookieOptions.expiresInDays || 0);
+    const expires = getExpireDate(cookieOptions?.expiresInDays || 0);
     document.cookie = `${cookieName}=${cookieValue}${expires};path=/`;
 };
 

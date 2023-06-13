@@ -5,33 +5,71 @@ import { Button, InputField } from "@components";
 import { register } from "@services/authService";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useAuth, useAuthDispatch } from "@contexts/authContext";
+import { useError } from "@hooks/useError";
+import useSWR from "swr";
 
 export default function Register(): React.ReactElement {
     const [username, setUsername] = React.useState<string>("");
     const [email, setEmail] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
-    const [confirmPassword, setConfirmPassword] = React.useState<string>("");
+    const [passwordConfirm, setPasswordConfirm] = React.useState<string>("");
+    const [shouldFetch, setShouldFetch] = React.useState<boolean>(false);
+    const { errorMessage, setErrorMessage } = useError(3000);
+    const { setToken } = useAuthDispatch();
+    const { token } = useAuth();
     const router = useRouter();
 
-    const registerUser = () => {
-        if (password !== confirmPassword) {
+    const { data, isLoading, error } = useSWR(shouldFetch ? "/api/user/register" : null, async (url) => {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, email, password, passwordConfirm }),
+        });
+
+        if (!response.ok) {
+            const error = new Error(await response.json()) as any;
+            error.status = response.status;
+            throw error;
+        }
+
+        return response.json();
+    });
+
+    if (token) {
+        router.push("/");
+    }
+
+    const register = async () => {
+        if (isLoading) return;
+
+        if (!email || !password || !passwordConfirm || !username) {
+            setErrorMessage("Bitte fülle alle Felder aus");
             return;
         }
 
-        register({
-            username,
-            email,
-            password,
-            confirmPassword,
-        })
-            .then((res) => {
-                console.log(res);
-                router.push("/");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (password !== passwordConfirm) {
+            setErrorMessage("Passwörter stimmen nicht überein");
+            return;
+        }
+
+        setShouldFetch(true);
     };
+
+    React.useEffect(() => {
+        if (error) {
+            setErrorMessage(error.status === 400 ? "E-Mail bereits registriert" : "Ein Fehler ist aufgetreten");
+            setShouldFetch(false);
+            return;
+        }
+
+        if (data) {
+            console.log(data);
+            setToken(data.token);
+        }
+    }, [data, error]);
 
     return (
         <div className={styling.container}>
@@ -48,14 +86,15 @@ export default function Register(): React.ReactElement {
                 />
                 <InputField
                     fieldStyle="large"
-                    text={confirmPassword}
-                    changeText={setConfirmPassword}
+                    text={passwordConfirm}
+                    changeText={setPasswordConfirm}
                     label="Passwort Wiederholen"
                     inputMode="password"
                 />
             </div>
+            <p className={styling.errorText}>{errorMessage}</p>
             <div className={styling.s2}>
-                <Button mode="large" label="Registrieren" onClick={registerUser} />
+                <Button mode="large" label="Registrieren" onClick={register} loading={isLoading} />
                 <div className={styling.seperator}>
                     <div className={styling.hr}>
                         <span className={styling.span}>oder</span>

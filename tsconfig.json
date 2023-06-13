@@ -23,6 +23,9 @@
       "@components": ["./src/components/index"],
       "@interfaces/*": ["./src/interfaces/*"],
       "@services/*": ["./src/services/*"],
+      "@contexts/*": ["./src/context/*"],
+      "@models/*": ["./src/models/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@lib/*": ["./src/lib/*"],
       "@src/*": ["./src/*"],
     }
