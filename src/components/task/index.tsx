@@ -17,7 +17,7 @@ export interface TaskContainerProps {
     assignees: string;
 }
 
-const TaskContainer = React.memo(({ id, title, description, date, completed, assignees }: TaskContainerProps) => {
+const TaskContainer = React.memo(function TaskContainer({ id, title, description, date, completed, assignees }: TaskContainerProps) {
     const { state, setFocused, setTitle, setDescription, setAssignees } = useTask({
         title,
         description,
@@ -39,8 +39,6 @@ const TaskContainer = React.memo(({ id, title, description, date, completed, ass
 
         setFocused(false);
     };
-
-    console.log(state.assignees);
 
     return (
         <div
