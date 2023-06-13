@@ -1,0 +1,43 @@
+.h1 {
+    font-size: 16px;
+    color: var(--text-high);
+    flex-grow: 1;
+}
+
+.h2 {
+    font-size: 14px;
+    color: var(--text-mid);
+    font-weight: 400;
+}
+
+.p {
+    font-size: 16px;
+    color: var(--text-low);
+    text-align: left;
+    width: 100%;
+}
+
+
+.root {
+    padding: 12px 8px;
+    width: 100%;
+    height: fit-content;
+    background-color: var(--background);
+    border-radius: 10px;
+    justify-content: start;
+}
+
+.input {
+    cursor: pointer;
+    height: 15;
+    width: 15;
+    margin-right: 15px;
+}
+
+.checkbox {
+    width: 15px;
+    height: 15px;
+    border-width: 3px;
+    background-color: var(--primary);
+    margin: 0 10px;
+}

@@ -1,21 +1,26 @@
 "use client";
 
-import { Inter } from "next/font/google";
-import styles from "./page.module.css";
+import styling from "./page.module.css";
 import React from "react";
-import { getUserFromCookies } from "@/lib/cookies";
-import { Calender } from "@/components";
-
-const inter = Inter({ subsets: ["latin"] });
-const UserContext = React.createContext({});
+import { useRouter } from "next/navigation";
+import { useAuth } from "@contexts/authContext";
 
 export default function Main() {
-    const [user, setUser] = React.useState(getUserFromCookies());
+    const { token } = useAuth();
+    const router = useRouter();
+
+    if (!token) {
+        router.push("/login");
+    }
+
+    if (!token) {
+        return null;
+    }
 
     return (
-        <UserContext.Provider value={user}>
-            <main className={styles.main}>
-            </main>
-        </UserContext.Provider>
+        <main className={styling.main}>
+            <div className={styling.sidebar}></div>
+            <div className={styling.tasks}></div>
+        </main>
     );
 }
