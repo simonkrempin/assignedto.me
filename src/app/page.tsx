@@ -9,12 +9,14 @@ export default function Main() {
     const { token } = useAuth();
     const router = useRouter();
 
+    React.useEffect(() => {
+        if (!token) {
+            router.push("/login");
+        }
+    }, [])
+    
     if (!token) {
-        router.push("/login");
-    }
-
-    if (!token) {
-        return null;
+        return <div></div>;
     }
 
     return (

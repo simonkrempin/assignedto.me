@@ -2,7 +2,6 @@
 
 import styling from "./page.module.css";
 import { Button, InputField } from "@components";
-import { register } from "@services/authService";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useAuth, useAuthDispatch } from "@contexts/authContext";
