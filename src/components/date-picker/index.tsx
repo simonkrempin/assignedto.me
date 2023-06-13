@@ -2,7 +2,9 @@ import React from "react";
 
 import ReactDatePicker from "react-datepicker";
 
-import { DatePickerProps } from "@interfaces/components";
+interface DatePickerProps {
+  date: Date;
+}
 
 export const DatePicker = ({ date }: DatePickerProps): React.ReactElement => {
   const [selectedDate, setSelectedDate] = React.useState(new Date(date));

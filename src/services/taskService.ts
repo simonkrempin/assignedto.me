@@ -1,4 +1,4 @@
-import { Task } from "@/models/task";
+import { Task } from "@models/task";
 
 export const getCompletedTasks = async (token: string) => {
     console.log("reading completed tasks from database");

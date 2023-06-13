@@ -10,7 +10,7 @@ interface PeoplePickerProps {
 }
 
 const PeoplePicker = ({ selectedUsers, addUser }: PeoplePickerProps) => {
-    return <InputField text={selectedUsers} inputMode="small" changeText={addUser} label="Add user" />;
+    return <InputField text={selectedUsers} fieldStyle="small" changeText={addUser} label="Add user" />;
 };
 
 export default PeoplePicker;
