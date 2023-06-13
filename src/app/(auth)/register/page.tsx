@@ -69,6 +69,7 @@ export default function Register(): React.ReactElement {
             console.log(data);
             setToken(data.token);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, error]);
 
     return (

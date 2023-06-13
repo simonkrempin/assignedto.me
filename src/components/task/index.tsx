@@ -54,10 +54,10 @@ const TaskContainer = React.memo(({ id, title, description, date, completed, ass
                 <Checkbox checked={false} setChecked={(checked: boolean) => {}}/>
                 <div className="vertical-container">
                     <div className="horizontal-container">
-                        <InputField text={title} changeText={setTitle} inputMode="small" />
+                        <InputField text={title} changeText={setTitle} fieldStyle="small" />
                         <DatePicker date={date} />
                     </div>
-                    <InputField text={description} changeText={setDescription} inputMode="small" />
+                    <InputField text={description} changeText={setDescription} fieldStyle="small" />
                 </div>
             </div>
             {state.isFocused ? <PeoplePicker selectedUsers={state.assignees} addUser={setAssignees}/> : null}
