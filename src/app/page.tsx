@@ -1,7 +1,6 @@
 "use client";
 
 import styling from "./page.module.css";
-import styling from "./page.module.css";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@contexts/authContext";
@@ -22,21 +21,32 @@ export default function Main() {
         return <div></div>;
     }
 
-    const signOut = () => {
+    const onSignOutClicked = () => {
         deleteCookie("token");
         router.push("/login");
+    }
+
+    const onSettingsClicked = () => {
+        router.push("/settings");
+    }
+
+    const onToDoClicked = () => {
+
+    }
+
+    const onAssignedClicked = () => {
+        
     }
 
     return (
         <main className={styling.main}>
             <div className={styling.sidebar}>
                 <h1>username</h1>
-                <Button mode="large" onClick={() => {}} label="Alle" />
-                <Button mode="large" onClick={() => {}} label="To Do" />
-                <Button mode="large" onClick={() => {}} label="Zugewiesen" />
+                <Button mode="large" onClick={onToDoClicked} label="To Do" />
+                <Button mode="large" onClick={onAssignedClicked} label="Zugewiesen" />
                 <Calendar />
-                <Button mode="link" onClick={() => {}} label="Einstellungen" />
-                <Button mode="link" onClick={signOut} label="Abmelden" />
+                <Button mode="link" onClick={onSettingsClicked} label="Einstellungen" />
+                <Button mode="link" onClick={onSignOutClicked} label="Abmelden" />
             </div>
             <div className={styling.tasks}></div>
         </main>
