@@ -5,7 +5,7 @@ export const getCompletedTasks = async (token: string) => {
     console.log("reading completed tasks from database");
 }
 
-export const getTasks = async (token: string) => {
+export const getTasks = async (token: string, filter: { onlyCompleted: boolean }) => {
     console.log("reading tasks from database");
     const tasks = await pb.collection("tasks").getList();
     return tasks;

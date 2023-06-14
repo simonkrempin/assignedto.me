@@ -1,16 +1,23 @@
+import { getTasks } from "@services/taskService";
 import { cookies } from "next/headers";
-import { useSearchParams } from 'next/navigation';
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-    // const cookieStore = cookies();
-    // const token = cookieStore.get("Authorization");
+    const cookieStore = cookies();
+    const token = cookieStore.get("token")?.value;
 
-    console.log("getting tasks");
-    
-    const filter = request.nextUrl.searchParams.get("filter");
+    if (!token) {
+        return NextResponse.json({ message: "No token found" }, { status: 401 });
+    }
 
-    return new Response();
+    const { searchParams } = new URL(request.nextUrl);
+    const onlyCompleted = !!searchParams.get("completed");
+
+    const tasks = await getTasks(token, {
+        onlyCompleted,
+    });
+
+    return NextResponse.json(tasks, { status: 200 });    
 }
 
 export async function POST(request: Request) {
