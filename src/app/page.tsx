@@ -1,6 +1,7 @@
 "use client";
 
 import styling from "./page.module.css";
+import styling from "./page.module.css";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@contexts/authContext";
