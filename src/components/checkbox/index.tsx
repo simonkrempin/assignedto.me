@@ -12,9 +12,11 @@ const Checkbox = ({ checked, setChecked }: CheckboxProps) => {
         setChecked(!checked);
     }
 
+    console.log(checked);
+
     return (
         <label className={styles.container}>
-            <input type="checkbox" onClick={toggleChecked}/>
+            <input type="checkbox" onChange={toggleChecked}/>
             <div className={styles.checkmark}/>
         </label>
     );

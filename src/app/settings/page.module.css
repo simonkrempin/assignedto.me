@@ -1,0 +1,19 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 400px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

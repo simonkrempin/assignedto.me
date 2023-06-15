@@ -1,7 +1,7 @@
 import React from "react";
 import pb from "@services/databaseConnection";
 import { Admin, Record } from "pocketbase";
-import { getCookie, setCookie } from "@lib/cookies";
+import { deleteCookie, getCookie, setCookie } from "@lib/cookies";
 
 interface AuthContext {
     user: Record | Admin | null;
@@ -11,6 +11,7 @@ interface AuthContext {
 interface AuthContextDispatch {
     setUser: any;
     setToken: any;
+    deleteToken: any;
 }
 
 const AuthContext = React.createContext<AuthContext>({
@@ -21,6 +22,7 @@ const AuthContext = React.createContext<AuthContext>({
 const AuthContextDispatch = React.createContext<AuthContextDispatch>({
     setUser: () => {},
     setToken: () => {},
+    deleteToken: () => {},
 });
 
 interface AuthProviderProps {
@@ -38,9 +40,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         _setToken(token);
     }
 
+    const deleteToken = () => {
+        deleteCookie("token");
+        _setToken("");
+    }
+
     return (
         <AuthContext.Provider value={{ user, token }}>
-            <AuthContextDispatch.Provider value={{ setUser, setToken }}>{children}</AuthContextDispatch.Provider>
+            <AuthContextDispatch.Provider value={{ setUser, setToken, deleteToken }}>{children}</AuthContextDispatch.Provider>
         </AuthContext.Provider>
     );
 };

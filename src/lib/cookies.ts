@@ -35,7 +35,7 @@ export const clearCookies = () => {
 export const deleteCookie = (cookieName: string): void => {
     if (!clientSide()) return;
 
-    document.cookie = `${cookieName}=;max-age=0;path=/`;
+    document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
 };
 
 export const setCookie = (cookieName: string, cookieValue: string, cookieOptions?: CookieOptions): void => {
