@@ -15,9 +15,11 @@ const fontFace = Inter({ subsets: ["latin"] });
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="de">
-            <AuthProvider>
-                <body className={fontFace.className}>{children}</body>
-            </AuthProvider>
+            <body className={fontFace.className}>
+                <AuthProvider>
+                    <main>{children}</main>
+                </AuthProvider>
+            </body>
         </html>
     );
 }

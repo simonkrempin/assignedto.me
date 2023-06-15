@@ -26,6 +26,7 @@
       "@contexts/*": ["./src/context/*"],
       "@models/*": ["./src/models/*"],
       "@hooks/*": ["./src/hooks/*"],
+      "@customTypes/*": ["./src/types/*"],
       "@lib/*": ["./src/lib/*"],
       "@src/*": ["./src/*"],
     }

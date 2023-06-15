@@ -3,12 +3,21 @@
 import styling from "./page.module.css";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@contexts/authContext";
-import { Button, Calendar } from "@components";
-import { deleteCookie } from "@lib/cookies";
+import { useAuth, useAuthDispatch } from "@contexts/authContext";
+import { Button, Calendar, TaskContainer } from "@components";
+import { Task } from "@models/task";
 
 export default function Main() {
     const { token } = useAuth();
+    const { deleteToken } = useAuthDispatch();
+    const tasks: Task[] = [
+        {
+            id: "1",
+            title: "Test",
+            description: "Test",
+            deadline: new Date(),
+        },
+    ];
     const router = useRouter();
 
     React.useEffect(() => {
@@ -22,33 +31,54 @@ export default function Main() {
     }
 
     const onSignOutClicked = () => {
-        deleteCookie("token");
+        deleteToken();
         router.push("/login");
-    }
+    };
 
     const onSettingsClicked = () => {
         router.push("/settings");
-    }
+    };
 
-    const onToDoClicked = () => {
+    const onToDoClicked = () => {};
 
-    }
-
-    const onAssignedClicked = () => {
-        
-    }
+    const onAssignedClicked = () => {};
 
     return (
-        <main className={styling.main}>
+        <section className={styling.main}>
             <div className={styling.sidebar}>
-                <h1>username</h1>
-                <Button mode="large" onClick={onToDoClicked} label="To Do" />
-                <Button mode="large" onClick={onAssignedClicked} label="Zugewiesen" />
-                <Calendar />
-                <Button mode="link" onClick={onSettingsClicked} label="Einstellungen" />
-                <Button mode="link" onClick={onSignOutClicked} label="Abmelden" />
+                <div className={styling.right_align}>
+                    <h1>username</h1>
+                    <div className={styling.buttons}>
+                        <Button mode="large" onClick={onToDoClicked} label="To Do" />
+                        <Button mode="large" onClick={onAssignedClicked} label="Zugewiesen" />
+                        <Calendar />
+                    </div>
+                    <div className={styling.buttons}>
+                        <Button mode="link" onClick={onSettingsClicked} label="Einstellungen" />
+                        <Button mode="link" onClick={onSignOutClicked} label="Abmelden" />
+                    </div>
+                </div>
             </div>
-            <div className={styling.tasks}></div>
-        </main>
+            <div className={styling.task_container}>
+                <div className={styling.left_align}>
+                    <Button mode="small" onClick={() => {}} label="Sortieren" />
+                    <hr />
+                    <div className={styling.tasks}>
+                        {tasks.map((task) => {
+                            return (
+                                <TaskContainer
+                                    id={task.id}
+                                    title={task.title}
+                                    description={task.description ?? ""}
+                                    date={task.deadline ?? new Date()}
+                                    completed={false}
+                                    assignees={""}
+                                />
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }

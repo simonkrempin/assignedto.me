@@ -37,10 +37,6 @@ export default function Login(): React.ReactElement {
         return response.json();
     });
 
-    if (token) {
-        router.push("/");
-    }
-
     const login = async () => {
         if (isLoading) return;
 
@@ -60,11 +56,16 @@ export default function Login(): React.ReactElement {
         }
 
         if (data) {
-            console.log(data);
             setToken(data.token);
+            router.push("/");
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, error]);
+
+    if (token) {
+        router.push("/");
+        return <div></div>
+    }
 
     return (
         <div className={styling.container}>
