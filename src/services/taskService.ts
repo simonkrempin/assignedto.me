@@ -29,3 +29,43 @@ export const completeTask = async (userId: string, taskId: string, completed: bo
     const assignedTask = await pb.collection("assigned").getFirstListItem(`user = "${userId}" && task = "${taskId}"`);
     await pb.collection("assigned").update(assignedTask.id, { completed });
 }
+
+export const getAssignedTasks = async (userId: string) => {
+    const assigendTasks = (await pb.collection("assigned").getList(1, 50, {
+        filter: `task.creator.id = "${userId}"`,
+        expand: "task,user"
+    })).items as any;
+
+    const filteredTasks: Record<string, {
+        id: string;
+        title: string;
+        description: string;
+        deadline: string;
+        users: {
+            username: string;
+            completed: boolean;
+        }[];
+    }> = {};
+
+    for (const assignedTask of assigendTasks) {
+        if (!filteredTasks[assignedTask.task.id]) {
+            filteredTasks[assignedTask.task.id] = {
+                id: assignedTask.task.id,
+                title: assignedTask.expand.task.title,
+                description: assignedTask.expand.task.description,
+                deadline: assignedTask.expand.task.deadline,
+                users: [{
+                    username: assignedTask.expand.user.username,
+                    completed: assignedTask.completed
+                }]
+            };
+        } else {
+            filteredTasks[assignedTask.task.id].users.push({
+                username: assignedTask.expand.user.username,
+                completed: assignedTask.completed
+            });
+        }
+    }
+
+    return Object.values(filteredTasks);
+}

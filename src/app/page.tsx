@@ -11,34 +11,36 @@ import settingsIcon from "@icons/settings_black_24dp.svg";
 import { Task } from "@models/task";
 
 const cacheReducer = (state: any, action: any) => {
-    switch(action.type) {
+    switch (action.type) {
         case "toDo":
             return { ...state, toDo: action.payload };
         case "assigned":
             return { ...state, assigned: action.payload };
     }
-}
+};
 
 export default function Main() {
     const [currentlySelected, setCurrentlySelected] = React.useState<"toDo" | "assigned" | null>(null);
     const [shouldFetch, setShouldFetch] = React.useState<boolean>(false);
-    const [cache, setCache] = React.useReducer(cacheReducer, {} )
+    const [cache, setCache] = React.useReducer(cacheReducer, {});
     const { token } = useAuth();
     const { deleteToken } = useAuthDispatch();
     const router = useRouter();
 
-    const { data, error, isLoading } = useSWR(shouldFetch ? "/api/tasks" : null, (url) =>
-        fetch(url).then(async (response) => {
-            if (!response.ok) {
-                const error = new Error(await response.json()) as any;
-                error.status = response.status;
-                throw error;
-            }
+    const { data, error, isLoading } = useSWR(
+        shouldFetch ? (`/api/tasks?filter=${currentlySelected === "toDo" ? "todo" : "assigned"}` as string) : null,
+        (url) =>
+            fetch(url).then(async (response) => {
+                if (!response.ok) {
+                    const error = new Error(await response.json()) as any;
+                    error.status = response.status;
+                    throw error;
+                }
 
-            setShouldFetch(false);
+                setShouldFetch(false);
 
-            setCache({ type: currentlySelected, payload: await response.json() });
-        })
+                setCache({ type: currentlySelected, payload: await response.json() });
+            })
     );
 
     React.useEffect(() => {
@@ -75,7 +77,7 @@ export default function Main() {
     const onAssignedClicked = () => {
         setCurrentlySelected("assigned");
     };
-    
+
     return (
         <section className={styling.main}>
             <div className={styling.sidebar}>
@@ -96,7 +98,7 @@ export default function Main() {
                 <div className={styling.left_align}>
                     <div className={styling.tasks}>
                         {currentlySelected && cache[currentlySelected]
-                            ? cache[currentlySelected].map((task: Task) => {
+                            ? cache[currentlySelected].map((task: any) => {
                                   return (
                                       <TaskContainer
                                           key={task.id}
@@ -106,6 +108,7 @@ export default function Main() {
                                           date={task.deadline ? new Date(task.deadline) : new Date()}
                                           completed={false}
                                           assignees={""}
+                                          created={currentlySelected === "assigned"}
                                       />
                                   );
                               })

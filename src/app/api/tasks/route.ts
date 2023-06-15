@@ -1,4 +1,4 @@
-import { createTask, getTasks } from "@services/taskService";
+import { createTask, getTasks, getAssignedTasks } from "@services/taskService";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { ClientResponseError } from "pocketbase";
@@ -16,13 +16,22 @@ export async function GET(request: NextRequest) {
     const userId = (jwt.decode(token) as { id: string }).id;
 
     const { searchParams } = new URL(request.nextUrl);
-    const onlyCompleted = !!searchParams.get("completed");
 
-    const tasks = await getTasks(userId, {
-        onlyCompleted,
-    });
+    const filter = searchParams.get("filter");
 
-    return NextResponse.json(tasks, { status: 200 });    
+    if (filter === "todo") {
+        const todoTasks = await getTasks(userId, {
+            onlyCompleted: false,
+        });
+        return NextResponse.json(todoTasks, { status: 200 });
+    }
+
+    if (filter === "assigned") {
+        const assignedTasks = await getAssignedTasks(userId);
+        return NextResponse.json(assignedTasks, { status: 200 });
+    }
+
+    return new Response("invalid query", { status: 400 });
 }
 
 export async function POST(request: Request) {
@@ -34,7 +43,7 @@ export async function POST(request: Request) {
     }
 
     const userId = (jwt.decode(token) as { id: string }).id;
-    const task = await request.json() as Task;
+    const task = (await request.json()) as Task;
     task.creator = userId;
 
     try {
