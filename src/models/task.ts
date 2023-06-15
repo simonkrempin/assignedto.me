@@ -3,7 +3,7 @@ export interface Task {
     title: string;
     creator: string;
     description?: string;
-    deadline?: Date;
-    created?: Date;
-    updated?: Date;
+    deadline?: string;
+    created?: string;
+    updated?: string;
 }

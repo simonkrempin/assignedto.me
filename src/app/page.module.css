@@ -41,7 +41,8 @@
 .tasks {
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 800px;
+    padding-left: 20px;
 }
 
 .left_align {

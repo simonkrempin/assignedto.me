@@ -4,13 +4,20 @@
     font-size: 16px;
     color: var(--text-mid);
     background-color: var(--primary-light);
-    border: 2px solid var(--primary-light);
+    border: none;
     border-radius: var(--border-radius);
     align-items: center;
     display: flex;
     justify-content: center;
     cursor: pointer;
     width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.large:hover {
+    background-color: var(--primary);
+    color: var(--background);
 }
 
 .loader {
@@ -41,10 +48,21 @@
     background-color: transparent;
 }
 
-/* text style darker */
+.link {
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    font-weight: bold;
+    cursor: pointer;
+}
 
-.darker {
-    background-color: var(--primary);
-    border: 2px solid var(--primary);
-    color: var(--background);
+.icon {
+    color: var(--text-mid);
 }

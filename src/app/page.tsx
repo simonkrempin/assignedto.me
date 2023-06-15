@@ -5,20 +5,41 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useAuth, useAuthDispatch } from "@contexts/authContext";
 import { Button, Calendar, TaskContainer } from "@components";
+import useSWR from "swr";
+import logoutIcon from "@icons/logout_black_24dp.svg";
+import settingsIcon from "@icons/settings_black_24dp.svg";
 import { Task } from "@models/task";
 
+const cacheReducer = (state: any, action: any) => {
+    switch(action.type) {
+        case "toDo":
+            return { ...state, toDo: action.payload };
+        case "assigned":
+            return { ...state, assigned: action.payload };
+    }
+}
+
 export default function Main() {
+    const [currentlySelected, setCurrentlySelected] = React.useState<"toDo" | "assigned" | null>(null);
+    const [shouldFetch, setShouldFetch] = React.useState<boolean>(false);
+    const [cache, setCache] = React.useReducer(cacheReducer, {} )
     const { token } = useAuth();
     const { deleteToken } = useAuthDispatch();
-    const tasks: Task[] = [
-        {
-            id: "1",
-            title: "Test",
-            description: "Test",
-            deadline: new Date(),
-        },
-    ];
     const router = useRouter();
+
+    const { data, error, isLoading } = useSWR(shouldFetch ? "/api/tasks" : null, (url) =>
+        fetch(url).then(async (response) => {
+            if (!response.ok) {
+                const error = new Error(await response.json()) as any;
+                error.status = response.status;
+                throw error;
+            }
+
+            setShouldFetch(false);
+
+            setCache({ type: currentlySelected, payload: await response.json() });
+        })
+    );
 
     React.useEffect(() => {
         if (!token) {
@@ -26,9 +47,17 @@ export default function Main() {
         }
     }, []);
 
-    if (!token) {
-        return <div></div>;
-    }
+    React.useEffect(() => {
+        if (currentlySelected === null) {
+            return;
+        }
+
+        if (cache[currentlySelected]) {
+            return;
+        }
+
+        setShouldFetch(true);
+    }, [currentlySelected]);
 
     const onSignOutClicked = () => {
         deleteToken();
@@ -39,10 +68,14 @@ export default function Main() {
         router.push("/settings");
     };
 
-    const onToDoClicked = () => {};
+    const onToDoClicked = () => {
+        setCurrentlySelected("toDo");
+    };
 
-    const onAssignedClicked = () => {};
-
+    const onAssignedClicked = () => {
+        setCurrentlySelected("assigned");
+    };
+    
     return (
         <section className={styling.main}>
             <div className={styling.sidebar}>
@@ -54,28 +87,29 @@ export default function Main() {
                         <Calendar />
                     </div>
                     <div className={styling.buttons}>
-                        <Button mode="link" onClick={onSettingsClicked} label="Einstellungen" />
-                        <Button mode="link" onClick={onSignOutClicked} label="Abmelden" />
+                        <Button mode="link" onClick={onSettingsClicked} label="Einstellungen" icon={settingsIcon} />
+                        <Button mode="link" onClick={onSignOutClicked} label="Abmelden" icon={logoutIcon} />
                     </div>
                 </div>
             </div>
             <div className={styling.task_container}>
                 <div className={styling.left_align}>
-                    <Button mode="small" onClick={() => {}} label="Sortieren" />
-                    <hr />
                     <div className={styling.tasks}>
-                        {tasks.map((task) => {
-                            return (
-                                <TaskContainer
-                                    id={task.id}
-                                    title={task.title}
-                                    description={task.description ?? ""}
-                                    date={task.deadline ?? new Date()}
-                                    completed={false}
-                                    assignees={""}
-                                />
-                            );
-                        })}
+                        {currentlySelected && cache[currentlySelected]
+                            ? cache[currentlySelected].map((task: Task) => {
+                                  return (
+                                      <TaskContainer
+                                          key={task.id}
+                                          id={task.id}
+                                          title={task.title}
+                                          description={task.description ?? ""}
+                                          date={task.deadline ? new Date(task.deadline) : new Date()}
+                                          completed={false}
+                                          assignees={""}
+                                      />
+                                  );
+                              })
+                            : null}
                     </div>
                 </div>
             </div>

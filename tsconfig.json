@@ -28,6 +28,7 @@
       "@hooks/*": ["./src/hooks/*"],
       "@customTypes/*": ["./src/types/*"],
       "@lib/*": ["./src/lib/*"],
+      "@icons/*": ["./public/*"],
       "@src/*": ["./src/*"],
     }
   },

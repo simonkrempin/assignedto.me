@@ -1,0 +1,17 @@
+.main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 100px 50px;
+}
+
+
+.return_arrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+}

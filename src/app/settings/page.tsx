@@ -32,26 +32,25 @@ export default function Settings() {
     const onCancelClicked = () => {};
 
     return (
-        <main className={styling.main}>
-            <h1>Settings</h1>
-            <div className={styling.fields}>
-                <InputField label="Nutzername" text={username} changeText={setUsername} fieldStyle="large" />
-                <InputField label="E-Mail" text={email} changeText={setEmail} fieldStyle="large" />
-                <InputField label="Passwort" text={password} changeText={setPassword} fieldStyle="large" />
-                <InputField
-                    label="Password-Wiederholen"
-                    text={passwordRepeat}
-                    changeText={setPasswordRepeat}
-                    fieldStyle="large"
-                />
-            </div>
-            <div className={styling.buttons}>
-                <Button mode="large" onClick={() => {}} label="Speichern" />
-                <Button mode="large" onClick={() => {}} label="Abbrechen" />
-            </div>
-            <div className={styling.return_arrow}>
-                <a href="/">{"<"}</a>
-            </div>
-        </main>
+        <>
+            <main className={styling.main}>
+                <h1>Settings</h1>
+                <div className={styling.fields}>
+                    <InputField label="Nutzername" text={username} changeText={setUsername} fieldStyle="large" />
+                    <InputField label="E-Mail" text={email} changeText={setEmail} fieldStyle="large" />
+                    <InputField label="Passwort" text={password} changeText={setPassword} fieldStyle="large" />
+                    <InputField
+                        label="Password-Wiederholen"
+                        text={passwordRepeat}
+                        changeText={setPasswordRepeat}
+                        fieldStyle="large"
+                    />
+                </div>
+                <div className={styling.buttons}>
+                    <Button mode="large" onClick={() => {}} label="Speichern" />
+                    <Button mode="large" onClick={() => {}} label="Abbrechen" />
+                </div>
+            </main>
+        </>
     );
 }

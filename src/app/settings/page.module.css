@@ -1,8 +1,8 @@
 .main {
-    padding: 50px 200px;
     display: flex;
     flex-direction: column;
     gap: 50px;
+    width: 400px;
 }
 
 .buttons {
@@ -16,13 +16,4 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
-
-.return_arrow {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 30px;
-    color: #fff;
-    cursor: pointer;
 }
