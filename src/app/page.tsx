@@ -8,19 +8,18 @@ import { Button, Calendar, TaskContainer } from "@components";
 import useSWR from "swr";
 import logoutIcon from "@icons/logout_black_24dp.svg";
 import settingsIcon from "@icons/settings_black_24dp.svg";
-import { Task } from "@models/task";
 
 const cacheReducer = (state: any, action: any) => {
     switch (action.type) {
-        case "toDo":
-            return { ...state, toDo: action.payload };
+        case "todo":
+            return { ...state, todo: action.payload };
         case "assigned":
             return { ...state, assigned: action.payload };
     }
 };
 
 export default function Main() {
-    const [currentlySelected, setCurrentlySelected] = React.useState<"toDo" | "assigned" | null>(null);
+    const [currentlySelected, setCurrentlySelected] = React.useState<"todo" | "assigned" | null>(null);
     const [shouldFetch, setShouldFetch] = React.useState<boolean>(false);
     const [cache, setCache] = React.useReducer(cacheReducer, {});
     const { token } = useAuth();
@@ -28,7 +27,7 @@ export default function Main() {
     const router = useRouter();
 
     const { data, error, isLoading } = useSWR(
-        shouldFetch ? (`/api/tasks?filter=${currentlySelected === "toDo" ? "todo" : "assigned"}` as string) : null,
+        shouldFetch ? (`/api/tasks?filter=${currentlySelected}` as string) : null,
         (url) =>
             fetch(url).then(async (response) => {
                 if (!response.ok) {
@@ -50,11 +49,7 @@ export default function Main() {
     }, []);
 
     React.useEffect(() => {
-        if (currentlySelected === null) {
-            return;
-        }
-
-        if (cache[currentlySelected]) {
+        if (currentlySelected === null || cache[currentlySelected]) {
             return;
         }
 
@@ -71,12 +66,14 @@ export default function Main() {
     };
 
     const onToDoClicked = () => {
-        setCurrentlySelected("toDo");
+        setCurrentlySelected("todo");
     };
 
     const onAssignedClicked = () => {
         setCurrentlySelected("assigned");
     };
+
+    console.log(cache);
 
     return (
         <section className={styling.main}>
@@ -85,7 +82,7 @@ export default function Main() {
                     <h1>username</h1>
                     <div className={styling.buttons}>
                         <Button mode="large" onClick={onToDoClicked} label="To Do" />
-                        <Button mode="large" onClick={onAssignedClicked} label="Zugewiesen" />
+                        <Button mode="large" onClick={onAssignedClicked} label="Erstellt" />
                         <Calendar />
                     </div>
                     <div className={styling.buttons}>
@@ -106,8 +103,8 @@ export default function Main() {
                                           title={task.title}
                                           description={task.description ?? ""}
                                           date={task.deadline ? new Date(task.deadline) : new Date()}
-                                          completed={false}
-                                          assignees={""}
+                                          completed={task.completed}
+                                          assignees={task.users ?? []}
                                           created={currentlySelected === "assigned"}
                                       />
                                   );

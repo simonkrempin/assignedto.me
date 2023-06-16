@@ -6,11 +6,21 @@ export const getCompletedTasks = async (token: string) => {
     console.log("reading completed tasks from database");
 }
 
-export const getTasks = async (userId: string, filter: { onlyCompleted: boolean }) => {
-    const tasks = await pb.collection("tasks").getList(1, 50, {
-        filter: `creator = "${userId}"`
-    });
-    return tasks.items;
+export const getToDoTasks = async (userId: string, filter: { onlyCompleted: boolean }) => {
+    const assignedTasks = (await pb.collection("assigned").getList(1, 50, {
+        filter: `user.id = "${userId}" && completed = false`,
+        expand: "task"
+    })).items as any;
+
+    return assignedTasks.map((assignedTask: any) => {
+        return {
+            id: assignedTask.expand.task.id,
+            title: assignedTask.expand.task.title,
+            description: assignedTask.expand.task.description,
+            deadline: assignedTask.expand.task.deadline,
+            completed: false
+        };
+    })
 }
 
 export const createTask = async (task: Task) => {
@@ -42,7 +52,7 @@ export const getAssignedTasks = async (userId: string) => {
         description: string;
         deadline: string;
         users: {
-            username: string;
+            email: string;
             completed: boolean;
         }[];
     }> = {};
@@ -55,13 +65,13 @@ export const getAssignedTasks = async (userId: string) => {
                 description: assignedTask.expand.task.description,
                 deadline: assignedTask.expand.task.deadline,
                 users: [{
-                    username: assignedTask.expand.user.username,
+                    email: assignedTask.expand.user.email,
                     completed: assignedTask.completed
                 }]
             };
         } else {
             filteredTasks[assignedTask.task.id].users.push({
-                username: assignedTask.expand.user.username,
+                email: assignedTask.expand.user.email,
                 completed: assignedTask.completed
             });
         }

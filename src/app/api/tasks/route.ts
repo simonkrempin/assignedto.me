@@ -1,4 +1,4 @@
-import { createTask, getTasks, getAssignedTasks } from "@services/taskService";
+import { createTask, getToDoTasks, getAssignedTasks } from "@services/taskService";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { ClientResponseError } from "pocketbase";
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     const filter = searchParams.get("filter");
 
     if (filter === "todo") {
-        const todoTasks = await getTasks(userId, {
+        const todoTasks = await getToDoTasks(userId, {
             onlyCompleted: false,
         });
         return NextResponse.json(todoTasks, { status: 200 });

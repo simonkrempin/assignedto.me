@@ -10,10 +10,12 @@ interface inputProps {
     changeText: (text: string) => void;
     fieldStyle: FieldStyle;
     inputMode?: "text" | "password";
+    placeholder?: string;
 }
 
-const InputField = ({ text, fieldStyle, label, changeText, inputMode = "text" }: inputProps) => {
+const InputField = ({ text, fieldStyle, label, changeText, inputMode = "text", placeholder }: inputProps) => {
     const onInput = (event: react.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.value);
         changeText(event.target.value);
     };
 
@@ -22,13 +24,13 @@ const InputField = ({ text, fieldStyle, label, changeText, inputMode = "text" }:
             return (
                 <div>
                     <label>{label}</label>
-                    <input  className={styles.input} value={text} onInput={onInput} type={inputMode}></input>
+                    <input className={styles.input} value={text} onInput={onInput} type={inputMode}></input>
                 </div>
             );
         case "small":
             return (
-                <p className={styles.p} contentEditable={true} suppressContentEditableWarning={true} onInput={onInput}>
-                    {text}
+                <p className={styles.p} contentEditable={true} suppressContentEditableWarning={true} onChange={onInput}>
+                    {text ? text : placeholder}
                 </p>
             );
         default:

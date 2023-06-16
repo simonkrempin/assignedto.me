@@ -16,7 +16,7 @@ export const auth = async (email: string, password: string): Promise<AuthRespons
 };
 
 export const register = async (userinformation: RegisterUser): Promise<AuthResponse> => {
-    await db.collection("users").create(userinformation);
+    await db.collection("users").create({ ...userinformation, emailVisible: true });
 
     const authData = await db.collection("users").authWithPassword(userinformation.email, userinformation.password);
 

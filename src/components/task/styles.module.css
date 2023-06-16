@@ -41,3 +41,11 @@
     background-color: var(--primary);
     margin: 0 10px;
 }
+
+.primary_bar {
+    display: flex;
+}
+
+.title {
+    flex: 1;
+}
