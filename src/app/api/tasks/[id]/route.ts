@@ -1,6 +1,5 @@
-import { Task } from "@models/task";
+import { Task, UpdateTask } from "@models/task";
 import { completeTask, deleteTask, updateTask } from "@services/taskService";
-import { PartiallyRequired } from "@customTypes/utilityExtension";
 import { ClientResponseError } from "pocketbase";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
@@ -13,14 +12,15 @@ export async function PUT(request: Request, { params }: { params: { id: string }
         return new Response("Unauthorized", { status: 401 });
     }
 
-    const task = (await request.json()) as PartiallyRequired<Task, "id">;
+    const task = (await request.json()) as UpdateTask;
     task.id = params.id;
+    task.creator = (jwt.decode(token) as { id: string }).id;
 
     try {
         await updateTask(task);
         return new Response("OK", { status: 200 });
     } catch (error) {
-        return new Response((error as ClientResponseError).response.message, { status: 500 });
+        return new Response((error as ClientResponseError).response?.message, { status: 500 });
     }
 }
 

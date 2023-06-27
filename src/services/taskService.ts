@@ -1,6 +1,5 @@
-import { Task } from "@models/task";
+import { Task, UpdateTask } from "@models/task";
 import pb from "./databaseConnection";
-import { PartiallyRequired } from "@customTypes/utilityExtension";
 
 export const getCompletedTasks = async (token: string) => {
     console.log("reading completed tasks from database");
@@ -27,8 +26,26 @@ export const createTask = async (task: Task) => {
     await pb.collection("tasks").create(task);
 }
 
-export const updateTask = async (task: PartiallyRequired<Task, "id">) => {
-    await pb.collection("tasks").update(task.id, task);
+export const updateTask = async (task: UpdateTask) => {
+    await pb.collection("tasks").delete(task.id);
+
+    const updateTask = pb.collection("tasks").create({
+        id: task.id,
+        title: task.title,
+        creator: task.creator,
+        description: task.description,
+        deadline: task.deadline
+    });
+
+    const addAssignedTasks = task.asignees.map(async (asignee) => {
+        return pb.collection("assigned").create({
+            user: asignee.email,
+            task: task.id,
+            completed: asignee.completed
+        });
+    });
+    
+    await Promise.all([ updateTask, addAssignedTasks]);
 }
 
 export const deleteTask = async (taskId: string) => {
@@ -46,31 +63,39 @@ export const getAssignedTasks = async (userId: string) => {
         expand: "task,user"
     })).items as any;
 
+    if (assigendTasks.length === 0) {
+        return [ await pb.collection("tasks").getFirstListItem(`creator = "${userId}"`)];
+    }
+
     const filteredTasks: Record<string, {
         id: string;
         title: string;
         description: string;
         deadline: string;
         users: {
+            id: string;
             email: string;
             completed: boolean;
         }[];
     }> = {};
 
+
     for (const assignedTask of assigendTasks) {
         if (!filteredTasks[assignedTask.task.id]) {
             filteredTasks[assignedTask.task.id] = {
-                id: assignedTask.task.id,
+                id: assignedTask.expand.task.id,
                 title: assignedTask.expand.task.title,
                 description: assignedTask.expand.task.description,
                 deadline: assignedTask.expand.task.deadline,
                 users: [{
+                    id: assignedTask.expand.user.id,
                     email: assignedTask.expand.user.email,
                     completed: assignedTask.completed
                 }]
             };
         } else {
             filteredTasks[assignedTask.task.id].users.push({
+                id: assigendTasks.expand.user.id,
                 email: assignedTask.expand.user.email,
                 completed: assignedTask.completed
             });

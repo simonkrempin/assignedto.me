@@ -7,3 +7,16 @@ export interface Task {
     created?: string;
     updated?: string;
 }
+
+export interface UpdateTask {
+    id: string;
+    title: string;
+    creator: string;
+    description?: string;
+    deadline?: string;
+    asignees: {
+        id: string;
+        email: string;
+        completed: boolean;
+    }[];
+}

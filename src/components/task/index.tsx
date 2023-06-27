@@ -48,7 +48,13 @@ const TaskContainer = React.memo(function TaskContainer(props: TaskContainerProp
 
     const dontBlurOnChildClicked = (event: React.FocusEvent<HTMLDivElement>) => {
         event.preventDefault();
-        if (focusRef.current?.contains(event.relatedTarget as Node)) {
+        // if ( || focusRef.current?.contains(event.target as Node)) {
+        //     return;
+        // }
+        console.log(focusRef.current);
+        console.log(event.target);
+        console.log(focusRef.current?.contains(event.target as Node));
+        if (focusRef.current?.contains(event.target as Node) || focusRef.current === event.target) {
             return;
         }
 
@@ -94,6 +100,51 @@ const TaskContainer = React.memo(function TaskContainer(props: TaskContainerProp
         dispatchAssignees({ type: "remove", position: assigneeToDelete });
     };
 
+    if (props.created) {
+        return <div
+            key={props.id}
+            ref={focusRef}
+            className={`${styles.root} vertical-container`}
+            onClick={startFocus}
+            onBlur={dontBlurOnChildClicked}
+        >
+            <div className="horizontal-container">
+                <InputField text={title} changeText={setTitle} fieldStyle="small" placeholder="Titel"/>
+                <DatePicker date={date} />
+            </div>
+            <InputField text={description} changeText={setDescription} fieldStyle="small" placeholder="Beschreibung"/>
+            {focused ? (
+                <div className="vertical-container">
+                    {assignees.map(
+                        (
+                            assignee: {
+                                email: string;
+                                completed: boolean;
+                            },
+                            index: number
+                        ) => (
+                            <div key={`${assignee.email}+${index}`} className="horizontal-container">
+                                <Checkbox checked={assignee?.completed} setChecked={() => {}} />
+                                <InputField
+                                    text={assignee?.email}
+                                    changeText={(text: string) => {
+                                        console.log(text);
+                                        dispatchAssignees({ position: index, payload: text });
+                                    }}
+                                    fieldStyle="small"
+                                    placeholder="E-Mail"
+                                />
+                                <Button mode="link" onClick={() => onDeleteClicked(index)} label="löschen" />
+                            </div>
+                        )
+                    )}
+                    <Button mode="link" onClick={onAddClicked} label="+" />
+                    <Button mode="link" onClick={onSaveClicked} label="speichern" />
+                </div>
+            ) : null}
+        </div>;
+    }
+
     return (
         <div
             key={props.id}
@@ -102,59 +153,16 @@ const TaskContainer = React.memo(function TaskContainer(props: TaskContainerProp
             onClick={startFocus}
             onBlur={dontBlurOnChildClicked}
         >
-            {props.created ? (
-                <>
-                    <div className="horizontal-container">
-                        <InputField text={title} changeText={setTitle} fieldStyle="small" />
-                        <DatePicker date={date} />
+            <div className="horizontal-container">
+                <Checkbox checked={completed} setChecked={onCheckedClicked} />
+                <div className="vertical-container">
+                    <div className={`${styles.primary_bar} horizontal-container`}>
+                        <p className={styles.title}>{props.title}</p>
+                        <p>{dateToString(props.date)}</p>
                     </div>
-                    <InputField text={description} changeText={setDescription} fieldStyle="small" />
-                    {focused ? (
-                        <div className="vertical-container">
-                            {assignees.map(
-                                (
-                                    assignee: {
-                                        email: string;
-                                        completed: boolean;
-                                    },
-                                    index: number
-                                ) => (
-                                    <div key={`${assignee.email}+${index}`} className="horizontal-container">
-                                        <Checkbox checked={assignee?.completed} setChecked={() => {}} />
-                                        <InputField
-                                            text={assignee?.email}
-                                            changeText={(text: string) => {
-                                                console.log(text);
-                                                dispatchAssignees({ position: index, payload: text });
-                                            }}
-                                            fieldStyle="small"
-                                            placeholder="E-Mail"
-                                        />
-                                        <Button
-                                            mode="link"
-                                            onClick={() => onDeleteClicked(index)}
-                                            label="löschen"
-                                        />
-                                    </div>
-                                )
-                            )}
-                            <Button mode="link" onClick={onAddClicked} label="+" />
-                            <Button mode="link" onClick={onSaveClicked} label="speichern" />
-                        </div>
-                    ) : null}
-                </>
-            ) : (
-                <div className="horizontal-container">
-                    <Checkbox checked={completed} setChecked={onCheckedClicked} />
-                    <div className="vertical-container">
-                        <div className={`${styles.primary_bar} horizontal-container`}>
-                            <p className={styles.title}>{props.title}</p>
-                            <p>{dateToString(props.date)}</p>
-                        </div>
-                        <p>{props.description}</p>
-                    </div>
+                    <p>{props.description}</p>
                 </div>
-            )}
+            </div>
         </div>
     );
 });

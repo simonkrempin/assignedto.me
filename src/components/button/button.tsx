@@ -15,7 +15,7 @@ const Button = ({ label, mode, onClick, loading = false, icon }: inputProps) => 
     return (
         <button className={styling[mode]} onClick={onClick}>
             {icon ? <Image className={styling.icon} src={icon} alt="icon" /> : null}
-            {loading ? <div className={styling.loader} /> : label}
+            {loading ? <div className="loader" /> : label}
         </button>
     );
 };
