@@ -33,15 +33,9 @@ export const createTask = async (task: Task) => {
 };
 
 export const updateTask = async (task: UpdateTask) => {
-    await pb.collection("tasks").delete(task.id);
+    await deleteTask(task.id);
 
-    await pb.collection("tasks").create({
-        id: task.id,
-        title: task.title,
-        creator: task.creator,
-        description: task.description,
-        deadline: task.deadline
-    });
+    await createTask(task);
 
     // find all the id's for the assignees emails
     const validatedAssignees = await Promise.all(
@@ -54,15 +48,24 @@ export const updateTask = async (task: UpdateTask) => {
         })
     );
 
-    const addAssignedTasks = validatedAssignees.map(async (assignee) => {
-        return pb.collection("assigned").create({
-            "user": assignee.id,
-            "task": task.id,
-            "completed": assignee.completed
-        });
-    });
+    // console.log(validatedAssignees);
 
-    await Promise.all(addAssignedTasks);
+    // await Promise.all(validatedAssignees.map(async (assignee) => {
+    //     await pb.collection("assigned").create({
+    //         "user": assignee.id,
+    //         "task": task.id,
+    //         "completed": assignee.completed
+    //     });
+    //     console.log("created assigned task");
+    // }));
+    for await (const validatedAssignee of validatedAssignees) {
+        await pb.collection("assigned").create({
+            "user": validatedAssignee.id,
+            "task": task.id,
+            "completed": validatedAssignee.completed
+        });
+        console.log("created assigned task");
+    }
 };
 
 export const deleteTask = async (taskId: string) => {

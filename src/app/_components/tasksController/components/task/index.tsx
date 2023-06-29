@@ -92,7 +92,7 @@ const TaskContainer = React.memo(function TaskContainer(props: TaskContainerProp
                 {isFocused(props.focused, cardRef.current) ? (
                     <div className="vertical-container">
                         {assignees.map((assignee: Assignee, index: number) => (
-                            <AssigneeEditMask index={index} />
+                            <AssigneeEditMask index={index} key={index} />
                         ))}
                         <Button mode="link" onClick={onAddClicked} label="+" />
                         <Button mode="link" onClick={onSaveClicked} label="speichern" />

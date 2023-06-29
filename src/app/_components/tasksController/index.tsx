@@ -14,12 +14,13 @@ import { AssigneProvider } from "./components/task/context/assigneContext";
 
 interface TasksControllerProps {
     currentlySelected: "todo" | "assigned" | null;
+    cache: any;
+    setCache: any;
 }
 
-export default function TasksController({ currentlySelected }: TasksControllerProps) {
+export default function TasksController({ currentlySelected, cache, setCache }: TasksControllerProps) {
     const [shouldFetch, setShouldFetch] = React.useState<boolean>(false);
-    const [cache, setCache] = useCache();
-
+    
     const { isLoading } = useSWR(shouldFetch ? (`/api/tasks?filter=${currentlySelected}` as string) : null, (url) =>
         fetch(url).then(async (response) => {
             if (!response.ok) {

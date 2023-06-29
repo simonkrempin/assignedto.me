@@ -31,6 +31,8 @@ const cacheReducer = (state: any, action: CacheReducerAction) => {
             return { ...state, assigned: action.payload };
         case "add":
             return { ...state, assigned: [...state.assigned, action.payload] };
+        case "reset":
+            return {};
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
         }

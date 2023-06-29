@@ -11,15 +11,17 @@ import styling from "./index.module.css";
 
 interface SidebarProps {
     setCurrentlySelected: (value: "todo" | "assigned" | null) => void;
+    setCache: any; 
 }
 
-export default function Sidebar({ setCurrentlySelected }: SidebarProps) {
+export default function Sidebar({ setCurrentlySelected, setCache }: SidebarProps) {
     const { deleteToken } = useAuthDispatch();
 
     const router = useRouter();
 
     const onSignOutClicked = () => {
         deleteToken();
+        setCache({ type: "reset" });
         router.push("/login");
     };
 
