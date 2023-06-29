@@ -29,6 +29,7 @@
       "@customTypes/*": ["./src/types/*"],
       "@lib/*": ["./src/lib/*"],
       "@icons/*": ["./public/*"],
+      "@pages/*": ["./src/components/pages/*"],
       "@src/*": ["./src/*"],
     }
   },

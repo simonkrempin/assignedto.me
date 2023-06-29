@@ -1,4 +1,4 @@
-import { createTask, getToDoTasks, getAssignedTasks } from "@services/taskService";
+import { createTask, getToDoTasks, getCreatedTasks } from "@services/taskService";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { ClientResponseError } from "pocketbase";
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (filter === "assigned") {
-        const assignedTasks = await getAssignedTasks(userId);
+        const assignedTasks = await getCreatedTasks(userId);
         return NextResponse.json(assignedTasks, { status: 200 });
     }
 

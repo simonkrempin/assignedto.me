@@ -14,7 +14,7 @@ export interface UpdateTask {
     creator: string;
     description?: string;
     deadline?: string;
-    asignees: {
+    assignees: {
         id: string;
         email: string;
         completed: boolean;

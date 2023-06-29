@@ -12,7 +12,6 @@ describe("cookies", () => {
 
         it("should return a cookie if it exists", () => {
             document.cookie = "test=test";
-            console.log("document.cookie: ", document.cookie);
             expect(getCookie("test")).toEqual("test");
         });
     });

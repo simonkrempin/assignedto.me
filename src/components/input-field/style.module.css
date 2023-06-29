@@ -11,4 +11,10 @@
 
 .p {
     width: 100%;
+    background-color: transparent;
+    border: none;
+}
+
+.p:focus {
+    outline: none;
 }

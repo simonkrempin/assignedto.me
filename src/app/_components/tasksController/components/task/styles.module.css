@@ -49,3 +49,7 @@
 .title {
     flex: 1;
 }
+
+.description {
+    width: 100%;
+}

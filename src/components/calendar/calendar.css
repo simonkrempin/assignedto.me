@@ -146,4 +146,7 @@ div {
 .react-datepicker__input-container > input  {
     margin: 0;
     text-align: right;
+    background-color: transparent;
+    border: none;
+    color: var(--text-mid);
 }

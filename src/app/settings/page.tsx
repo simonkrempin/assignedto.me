@@ -4,24 +4,18 @@ import React from "react";
 
 import styling from "./page.module.css";
 
-import { useRouter } from "next/navigation";
 import { useAuth } from "@contexts/authContext";
 import { Button, InputField } from "@components";
+import { usePrivateRoute } from "@hooks/usePrivateRoute";
 
 export default function Settings() {
     const [username, setUsername] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
     const [passwordRepeat, setPasswordRepeat] = React.useState<string>("");
     const [email, setEmail] = React.useState<string>("");
+    usePrivateRoute();
 
     const { token } = useAuth();
-    const router = useRouter();
-
-    React.useEffect(() => {
-        if (!token) {
-            router.push("/login");
-        }
-    }, []);
 
     if (!token) {
         return <div></div>;

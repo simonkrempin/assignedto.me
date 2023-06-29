@@ -54,7 +54,6 @@ export default function Tasks(): React.ReactElement {
     }
 
     if (data) {
-      console.log(data);
       setToken(data.token);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -15,7 +15,6 @@ interface inputProps {
 
 const InputField = ({ text, fieldStyle, label, changeText, inputMode = "text", placeholder }: inputProps) => {
     const onInput = (event: react.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value);
         changeText(event.target.value);
     };
 
@@ -29,9 +28,7 @@ const InputField = ({ text, fieldStyle, label, changeText, inputMode = "text", p
             );
         case "small":
             return (
-                <p className={styles.p} contentEditable={true} suppressContentEditableWarning={true} onChange={onInput}>
-                    {text ? text : placeholder}
-                </p>
+                <input value={text} className={styles.p} onInput={onInput} placeholder={placeholder}/>
             );
         default:
             throw new Error("not implemented");
