@@ -4,25 +4,23 @@ import { Admin, Record } from "pocketbase";
 import { deleteCookie, getCookie, setCookie } from "@lib/cookies";
 
 interface AuthContext {
-    user: Record | Admin | null;
+    username: string;
     token: string | null;
 }
 
 interface AuthContextDispatch {
-    setUser: any;
-    setToken: any;
-    deleteToken: any;
+    saveUser: any;
+    deleteUser: any;
 }
 
 const AuthContext = React.createContext<AuthContext>({
-    user: null,
+    username: "",
     token: null,
 });
 
 const AuthContextDispatch = React.createContext<AuthContextDispatch>({
-    setUser: () => {},
-    setToken: () => {},
-    deleteToken: () => {},
+    saveUser: () => {},
+    deleteUser: () => {},
 });
 
 interface AuthProviderProps {
@@ -30,7 +28,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-    const [user, setUser] = React.useState(null);
+    const [username, setUsername] = React.useState(getCookie("username"));
     const [token, _setToken] = React.useState(getCookie("token"));
 
     const setToken = (token: string) => {
@@ -40,14 +38,27 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         _setToken(token);
     }
 
-    const deleteToken = () => {
+    const saveUser = (token: string, username: string) => {
+        setCookie("token", token, {
+            expiresInDays: 7,
+        });
+        setCookie("username", username, {
+            expiresInDays: 7,
+        });
+        _setToken(token);
+        setUsername(username);
+    }
+
+    const deleteUser = () => {
         deleteCookie("token");
+        deleteCookie("username");
         _setToken("");
+        setUsername("");
     }
 
     return (
-        <AuthContext.Provider value={{ user, token }}>
-            <AuthContextDispatch.Provider value={{ setUser, setToken, deleteToken }}>{children}</AuthContextDispatch.Provider>
+        <AuthContext.Provider value={{ username, token }}>
+            <AuthContextDispatch.Provider value={{ saveUser, deleteUser }}>{children}</AuthContextDispatch.Provider>
         </AuthContext.Provider>
     );
 };

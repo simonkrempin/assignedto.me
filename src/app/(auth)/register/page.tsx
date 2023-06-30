@@ -15,7 +15,7 @@ export default function Register(): React.ReactElement {
     const [passwordConfirm, setPasswordConfirm] = React.useState<string>("");
     const [shouldFetch, setShouldFetch] = React.useState<boolean>(false);
     const { errorMessage, setErrorMessage } = useError(3000);
-    const { setToken } = useAuthDispatch();
+    const { saveUser } = useAuthDispatch();
     const { token } = useAuth();
     const router = useRouter();
 
@@ -65,7 +65,7 @@ export default function Register(): React.ReactElement {
         }
 
         if (data) {
-            setToken(data.token);
+            saveUser(data.token, data.username);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, error]);

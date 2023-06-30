@@ -15,7 +15,7 @@ export default function Login(): React.ReactElement {
     const { errorMessage, setErrorMessage } = useError(3000);
 
     const { token } = useAuth();
-    const { setToken } = useAuthDispatch();
+    const { saveUser } = useAuthDispatch();
 
     const router = useRouter();
 
@@ -56,7 +56,8 @@ export default function Login(): React.ReactElement {
         }
 
         if (data) {
-            setToken(data.token);
+            console.log(data);
+            saveUser(data.token, data.username);
             router.push("/");
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

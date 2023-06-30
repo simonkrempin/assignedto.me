@@ -1,8 +1,10 @@
+"use client";
+
 import React from "react";
 
 import { Button, Calendar } from "@components";
 
-import { useAuthDispatch } from "@contexts/authContext";
+import { useAuth, useAuthDispatch } from "@contexts/authContext";
 import { useRouter } from "next/navigation";
 
 import logoutIcon from "@icons/logout_black_24dp.svg";
@@ -15,12 +17,13 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ setCurrentlySelected, setCache }: SidebarProps) {
-    const { deleteToken } = useAuthDispatch();
+    const { username } = useAuth();
+    const { deleteUser } = useAuthDispatch();
 
     const router = useRouter();
 
     const onSignOutClicked = () => {
-        deleteToken();
+        deleteUser();
         setCache({ type: "reset" });
         router.push("/login");
     };
@@ -40,7 +43,7 @@ export default function Sidebar({ setCurrentlySelected, setCache }: SidebarProps
     return (
         <div className={styling.sidebar}>
             <div className={styling.right_align}>
-                <h1>username</h1>
+                <h1>{username}</h1>
                 <div className={styling.buttons}>
                     <Button mode="large" onClick={onToDoClicked} label="To Do" />
                     <Button mode="large" onClick={onAssignedClicked} label="Erstellt" />
